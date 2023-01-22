@@ -13,12 +13,14 @@ class DatabaseUtilities {
 	}
 
 	// database connection
-	public static Connection getConnection() throws SQLException {
+	public static Connection getConnection() throws SQLException,ClassNotFoundException{
 		if (connection == null) {
-			String conUrl =   "jdbc:sqlserver://" + host + ";"
+			/*String conUrl =   "jdbc:sqlserver://" + host + ";"
 							+ "databaseName=" + databaseName + ";"
 							+ "integratedSecurity=true";
-
+							*/
+			String conUrl = "jdbc:sqlserver://localhost:1433; databaseName=Project; integratedSecurity=true; encrypt=true;trustServerCertificate=true";
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			connection = DriverManager.getConnection(conUrl);
 		}
 		
