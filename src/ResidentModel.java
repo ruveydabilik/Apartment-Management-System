@@ -1,10 +1,11 @@
+package src;
+
 import java.sql.*;
 import java.util.*;
 
 
 class ResidentModel implements ModelInterface {
-	
-	@Override
+
 	public ResultSet select(Map<String, Object> whereParameters, String whichResident_) throws Exception {
 
 		String whichResident = "Resident" + whichResident_.trim();
@@ -29,7 +30,6 @@ class ResidentModel implements ModelInterface {
 		return result;
 	}
 		
-	@Override
 	public int insert(String fieldNames, List<Object> rows, String whichResident_) throws Exception
 	{
 		String whichResident = "dbo.Resident" + whichResident_.trim();
@@ -76,7 +76,17 @@ class ResidentModel implements ModelInterface {
 		
 		return rowCount;
 	}
-	
+
+	@Override
+	public ResultSet select(Map<String, Object> whereParameters) throws Exception {
+		return null;
+	}
+
+	@Override
+	public int insert(String fieldNames, List<Object> rows) throws Exception {
+		return 0;
+	}
+
 	@Override
 	public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception
 	{
@@ -125,6 +135,11 @@ class ResidentModel implements ModelInterface {
 		preparedStatement.close();
 		
 		return rowCount;
+	}
+
+	@Override
+	public ModelData execute(ViewData viewData) throws Exception {
+		return ModelInterface.super.execute(viewData);
 	}
 
 	@Override

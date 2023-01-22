@@ -1,0 +1,36 @@
+EXAMPLE ROLES:
+    manager, 
+    assistant manager, 
+    controller, = gelir gider takip eden
+    resident,
+    security,
+    janitor = kapıcı
+    
+    
+NOTES: 
+    src.Database.Manager, assistant manager, or controller can be also a resident (mostly they are)
+    You will collect monthly payments and spend these money on several items:    
+        -> monthly: ortak elektrik, su, havuz bakımı, asansör bakımı, temizlik, 
+        -> annual: boya, 
+        -> once: yalıtım, çocuk parkı, spor salonu, 
+    Some expenses are repetitive while some are not     -> 
+    Think this as a bank account where positive amounts are income while negative amounts are expenses. 
+        -> Income: Aidat,  
+    Although monthly payments are fixed it will change eventually, i.e., in each year. -> Yıllık faiz
+    Daire noya değil kişiye özel işlemler yapılmalı. Daire boşaldığında dairenin eski sakininin bilgileri silinip yeni sakinin bilgileri
+    
+Do some investigation and collect/create requirements for such a software and then design your database.     
+Test your design with insert, update, delete, select queries from Java. Finally, develop a console based application.
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+1.	In some apartments (by law if there are more than 9 residents), apartment manager do not pay dues (aidat). This should be decided by the apartment residents via majority voting.
+2.	Apartment manager has some legal authority such as a) he can set an electricity subscription, b) he can set as an water subscription, c) he can get other subscriptions. Generally apartment should pay the bills for these subscriptions. It can be monthly but sometimes period can change as well.
+3.	There are 2 electricity subscriptions: one for elevator, one for corridors, garage, and other areas.
+4.	In apartment meetings there will be decisions made by the apartment (either majority voting, or full voting). These meeting, decisions on these meetings, votes, and if it is approved or not should be stored. If there are 9 flat then 5 or more is majority, 9 is full voting. Some decisions requires full voting. This is decided by the law so user of the system should enter this manually.
+5.	Amount of dues are decided at a meeting. Then it is fixed until it is changed in another meeting.
+6.	Once you pay the bills (online or physically) these bills (as pdf or scanned images) must be stored in the database so that they can be accessed later.
+7.	Apartment manager can send message to residents (so their mail, phone numbers, whatsapp/telegram connection etc must be stored).

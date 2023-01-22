@@ -1,4 +1,5 @@
 package src;
+
 import java.sql.ResultSet;
 import java.util.*;
 
@@ -130,20 +131,20 @@ class ResidentView implements ViewInterface {
             ExitDate = getDate("ExitDate: ", true);
             ContactNo = getString("ContactNo: ", true);
 
-            while(!(authority >= 0) || !(authority <= 1)){
+            /*while(!(authority >= 0) || !(authority <= 1)){
                 System.out.println("Authority must be either 0 or 1!!!");
                 authority = getInteger("Authority(0 - 1): ", true);
-            }
+            }*/
             System.out.println();
 
             if (ResidentID != null && Name != null && MiddleName != null && Surname != null && EntryDate != null && ExitDate != null && ContactNo != null) {
-                rows.add(new Employee(ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo));
+                rows.add(new Resident(ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo));
             }
         }
 
         parameters.put("rows", rows);
 
-        return new ViewData("Resident", "insert", parameters , which);
+        return new ViewData("Resident", "insert", parameters);
     }
 
     ViewData updateGUI(ModelData modelData) throws Exception {

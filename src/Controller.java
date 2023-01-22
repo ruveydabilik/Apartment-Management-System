@@ -1,3 +1,4 @@
+package src;
 
 class Controller {
 	private ViewInterface view;

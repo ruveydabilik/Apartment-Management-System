@@ -1,7 +1,9 @@
+package src;
+
 import java.util.Date;
 
 
-class Resident {
+public class Resident {
 
 	private int ResidentID;
 	private String name;
@@ -9,7 +11,7 @@ class Resident {
 	private String surname;
 	private Date entryDate;
 	private Date exitDate;
-
+     private String contactNo;
 	Resident() {
 
 	}
@@ -23,13 +25,22 @@ class Resident {
 	}
 
 
-	Resident(int ResidentID, String name, String middleName, String surname, Date entryDate, Date exitDate) {
+	Resident(int ResidentID, String name, String middleName, String surname, Date entryDate, Date exitDate, String contactNo) {
 		this.ResidentID = ResidentID;
 		this.name = name;
 		this.middleName = middleName;
 		this.surname=surname;
 		this.entryDate= entryDate;
 		this.exitDate=exitDate;
+		this.contactNo = contactNo;
+	}
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
 	}
 
 	public int getResidentID() {
@@ -112,6 +123,7 @@ class Resident {
 				", surname='" + surname + '\'' +
 				", entryDate=" + entryDate +
 				", exitDate=" + exitDate +
+				", contactNo='" + contactNo + '\'' +
 				'}';
 	}
 }

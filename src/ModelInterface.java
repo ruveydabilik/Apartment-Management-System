@@ -1,10 +1,12 @@
+package src;
+
 import java.sql.*;
 import java.util.*;
 
 
 interface ModelInterface {
 
-	abstract ResultSet select(Map<String, Object> whereParameters , String whichResident) throws Exception;
+	abstract ResultSet select(Map<String, Object> whereParameters) throws Exception;
 	
 	abstract int insert(String fieldNames, List<Object> rows) throws Exception;
 		
@@ -23,7 +25,7 @@ interface ModelInterface {
 				//String which
 				Map<String, Object> whereParameters = (Map<String, Object>)(viewData.viewParameters.get("whereParameters"));
 				
-				ResultSet resultSet = select(whereParameters, );
+				ResultSet resultSet = select(whereParameters);
 				
 				return new ModelData(viewData.functionName, resultSet);
 			}
