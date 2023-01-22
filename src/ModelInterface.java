@@ -20,7 +20,7 @@ interface ModelInterface {
 		switch(viewData.operationName) {
 			case "select":
 			{
-				String which
+				//String which
 				Map<String, Object> whereParameters = (Map<String, Object>)(viewData.viewParameters.get("whereParameters"));
 				
 				ResultSet resultSet = select(whereParameters, );

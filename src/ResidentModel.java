@@ -5,13 +5,13 @@ import java.util.*;
 class ResidentModel implements ModelInterface {
 	
 	@Override
-	public ResultSet select(Map<String, Object> whereParameters, String whichResidentt) throws Exception {
+	public ResultSet select(Map<String, Object> whereParameters, String whichResident_) throws Exception {
 
-		String whichResident = "Resident" + whichResidentt.trim();
+		String whichResident = "Resident" + whichResident_.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT ");
-		sql.append("	ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate");
+		sql.append("	ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
 		sql.append(" FROM " + whichResident);
 
 		List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);		
@@ -30,12 +30,13 @@ class ResidentModel implements ModelInterface {
 	}
 		
 	@Override
-	public int insert(String fieldNames, List<Object> rows) throws Exception
+	public int insert(String fieldNames, List<Object> rows, String whichResident_) throws Exception
 	{
+		String whichResident = "dbo.Resident" + whichResident_.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
-		sql.append(" INSERT INTO dbo.Resident1 (" + fieldNames + ") " );
-		sql.append("	ResidentId, Name , MiddleName, Surname, EntryDate");
+		sql.append(" INSERT INTO "+ whichResident +" (" + fieldNames + ") " );
+		sql.append("	ResidentId, Name , MiddleName, Surname, EntryDate, ExitDate, ContactNo");
 		sql.append(" VALUES ");
 
 		String[] fieldList = fieldNames.split(",");

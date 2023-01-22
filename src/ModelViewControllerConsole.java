@@ -1,3 +1,7 @@
+package src;
+
+import src.*;
+
 import java.util.*;
 
 
@@ -10,9 +14,14 @@ public class ModelViewControllerConsole {
 		
 		// Model View Controller (MVC)
 		// Router knows all the controllers
-		Map<String, Controller> router = new HashMap<>();		
+		Map<Object, Object> router = new HashMap<>();
 		router.put("MainMenu", new Controller(new MainMenuView(), new NopModel()));
-		router.put("Department", new Controller(new DepartmentView(), new DepartmentModel()));
+
+		router.put("ResidentMenu", new Controller(new ResidentOpMenuView(), new NopModel()));
+		router.put("WorkerMenu", new Controller(new WorkerOpMenuView(), new NopModel()));
+
+		router.put("Resident", new Controller(new ResidentView(), new ResidentModel()));
+		router.put("Worker", new Controller(new WorkerView(), new WorkerModel()));
 
 		ViewData viewData = new ViewData("MainMenu", "");		
 		do {
