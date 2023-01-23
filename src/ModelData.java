@@ -1,5 +1,3 @@
-package src;
-
 import java.sql.ResultSet;
 
 public class ModelData {
