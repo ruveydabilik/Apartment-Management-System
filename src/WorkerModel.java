@@ -6,14 +6,24 @@ import java.util.*;
 
 class WorkerModel implements ModelInterface {
 
+<<<<<<< HEAD
+    public ResultSet select(Map<String, Object> whereParameters, String whichWorker_) throws Exception {
+
+        String whichWorker = "dbo." + whichWorker_.trim();
+=======
     public ResultSet select(Map<String, Object> whereParameters, String whichResident_) throws Exception {
 
         String whichResident = "Resident" + whichResident_.trim();
+>>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT ");
         sql.append("	ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+<<<<<<< HEAD
+        sql.append(" FROM " + whichWorker);
+=======
         sql.append(" FROM " + whichResident);
+>>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -31,6 +41,15 @@ class WorkerModel implements ModelInterface {
     }
 
 
+<<<<<<< HEAD
+    public int insert(String fieldNames, List<Object> rows, String whichWorker_) throws Exception
+    {
+        String whichWorker = "dbo." + whichWorker_.trim();
+        // construct SQL statement
+        StringBuilder sql = new StringBuilder();
+        sql.append(" INSERT INTO "+ whichWorker +" (" + fieldNames + ") " );
+      //  sql.append("	ResidentId, Name , MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+=======
     public int insert(String fieldNames, List<Object> rows, String whichResident_) throws Exception
     {
         String whichResident = "dbo.Resident" + whichResident_.trim();
@@ -38,6 +57,7 @@ class WorkerModel implements ModelInterface {
         StringBuilder sql = new StringBuilder();
         sql.append(" INSERT INTO "+ whichResident +" (" + fieldNames + ") " );
         sql.append("	ResidentId, Name , MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+>>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
         sql.append(" VALUES ");
 
         String[] fieldList = fieldNames.split(",");
@@ -78,6 +98,16 @@ class WorkerModel implements ModelInterface {
         return rowCount;
     }
 
+<<<<<<< HEAD
+
+    public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters, String whichWorker_) throws Exception
+    {
+        String whichWorker = "dbo." + whichWorker_.trim();
+
+        // construct SQL statement
+        StringBuilder sql = new StringBuilder();
+        sql.append(" UPDATE "+ whichWorker + " SET ");
+=======
     @Override
     public ResultSet select(Map<String, Object> whereParameters) throws Exception {
         return null;
@@ -94,6 +124,7 @@ class WorkerModel implements ModelInterface {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" UPDATE HumanResources.Resident SET ");
+>>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
         int appendCount = 0;
         for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
             sql.append(entry.getKey() + " = " + DatabaseUtilities.formatField(entry.getValue()));
@@ -116,12 +147,22 @@ class WorkerModel implements ModelInterface {
         return rowCount;
     }
 
+<<<<<<< HEAD
+
+    public int delete(Map<String,Object> whereParameters, String whichWorker_) throws Exception
+    {
+        String whichWorker = "dbo." + whichWorker_.trim();
+        // construct SQL statement
+        StringBuilder sql = new StringBuilder();
+        sql.append(" DELETE FROM " + whichWorker);
+=======
     @Override
     public int delete(Map<String,Object> whereParameters) throws Exception
     {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" DELETE FROM HumanResources.Resident ");
+>>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -138,9 +179,15 @@ class WorkerModel implements ModelInterface {
         return rowCount;
     }
 
+<<<<<<< HEAD
+
+    public ModelData execute(ViewData viewData, String whichWorker_) throws Exception {
+        return ModelInterface.super.execute(viewData, whichWorker_);
+=======
     @Override
     public ModelData execute(ViewData viewData) throws Exception {
         return ModelInterface.super.execute(viewData);
+>>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
     }
 
     @Override
