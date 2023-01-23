@@ -22,7 +22,10 @@ public class ModelViewControllerConsole {
         router.put("WorkerMenu", new Controller(new WorkerOpMenuView(), new NopModel()));
 
         router.put("Resident", new Controller(new ResidentView(), new ResidentModel()));
-        router.put("Worker", new Controller(new WorkerView(), new WorkerModel()));
+        //router.put("Worker", new Controller(new WorkerView(), new WorkerModel()));
+
+        //YUKARDAKİNİ AÇMAYI UNUTMAAAAAAAAAAAAAAA
+        //UNUTMA
 
         ViewData viewData = new ViewData("MainMenu", "");
 
@@ -35,7 +38,7 @@ public class ModelViewControllerConsole {
                 System.out.println("controller is null");
             }
 
-            ModelData modelData = controller.executeModel(viewData,"1");
+            ModelData modelData = controller.executeModel(viewData);
             if (modelData == null) {
                 System.out.println("Modeldata is null");
             }

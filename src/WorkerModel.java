@@ -1,3 +1,4 @@
+/*
 package src;
 
 import java.sql.*;
@@ -6,7 +7,7 @@ import java.util.*;
 
 class WorkerModel implements ModelInterface {
 
-    public ResultSet select(Map<String, Object> whereParameters, String whichWorker_) throws Exception {
+    public ResultSet select(Map<String, Object> whereParameters) throws Exception {
 
         String whichWorker = "dbo." + whichWorker_.trim();
         // construct SQL statement
@@ -31,7 +32,7 @@ class WorkerModel implements ModelInterface {
     }
 
 
-    public int insert(String fieldNames, List<Object> rows, String whichWorker_) throws Exception
+    public int insert(String fieldNames, List<Object> rows) throws Exception
     {
         String whichWorker = "dbo." + whichWorker_.trim();
         // construct SQL statement
@@ -79,7 +80,7 @@ class WorkerModel implements ModelInterface {
     }
 
 
-    public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters, String whichWorker_) throws Exception
+    public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception
     {
         String whichWorker = "dbo." + whichWorker_.trim();
 
@@ -109,8 +110,9 @@ class WorkerModel implements ModelInterface {
     }
 
 
-    public int delete(Map<String,Object> whereParameters, String whichWorker_) throws Exception
+    public int delete(Map<String,Object> whereParameters) throws Exception
     {
+
         String whichWorker = "dbo." + whichWorker_.trim();
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
@@ -132,8 +134,8 @@ class WorkerModel implements ModelInterface {
     }
 
 
-    public ModelData execute(ViewData viewData, String whichWorker_) throws Exception {
-        return ModelInterface.super.execute(viewData, whichWorker_);
+    public ModelData execute(ViewData viewData) throws Exception {
+        return ModelInterface.super.execute(viewData);
     }
 
     @Override
@@ -142,3 +144,4 @@ class WorkerModel implements ModelInterface {
     }
 }
 
+*/

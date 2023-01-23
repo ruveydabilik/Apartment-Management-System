@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0df152a-2f37-4672-9747-9aee97b9e469" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC_skeleton_v1 (1).iml" beforeDir="false" afterPath="$PROJECT_DIR$/MVC_skeleton_v1 (1).iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/AssistantManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/Cleaner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/Controller_.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/Gardener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/Janitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/Manager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/Security.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Department.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DepartmentModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DepartmentView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModelInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModelInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ModelViewControllerConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModelViewControllerConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResidentOpMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResidentOpMenuView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResidentView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResidentView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/WorkerOpMenuView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WorkerOpMenuView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +73,8 @@
       <updated>1674426623396</updated>
       <workItem from="1674426624796" duration="3781000" />
       <workItem from="1674463057896" duration="1660000" />
-      <workItem from="1674469068991" duration="346000" />
+      <workItem from="1674469068991" duration="4654000" />
+      <workItem from="1674474229680" duration="620000" />
     </task>
     <servers />
   </component>

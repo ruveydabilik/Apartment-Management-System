@@ -16,29 +16,13 @@ public class NopModel implements ModelInterface {
 		return 0;
 	}
 
-	@Override
-	public ResultSet select(Map<String, Object> whereParameters, String which_) throws Exception {
-		return null;
-	}
-
-	@Override
-	public int insert(String fieldNames, List<Object> rows, String which_) throws Exception {
-		return 0;
-	}
 
 
 	public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
 		return 0;
 	}
 
-	public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters, String which_) throws Exception {
-		return 0;
-	}
 
-
-	public int delete(Map<String, Object> whereParameters, String which_) throws Exception {
-		return 0;
-	}
 	public int delete(Map<String, Object> whereParameters) throws Exception {
 		return 0;
 	}

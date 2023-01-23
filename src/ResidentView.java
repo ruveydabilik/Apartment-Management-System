@@ -36,25 +36,23 @@ class ResidentView implements ViewInterface {
                 Date ExitDate = resultSet.getDate("ExitDate");
                 String ContactNo = resultSet.getString("ContactNo");
 
-
                 // Display values
-                System.out.print(ResidentID + "\t");
-                System.out.print(Name + "\t");
-                if (MiddleName == null){
-                    System.out.println(" " + "\t");
+                System.out.println("ResidentID: " + ResidentID);
+                System.out.print("Name: " + Name);
+                if (MiddleName != null){
+                    System.out.print(" " + MiddleName);
                 }
-                else{
-                    System.out.print(MiddleName + "\t");
-                }
-                System.out.println(Surname + "\t");
-                System.out.println(EntryDate + "\t");
+                System.out.println("\nSurname: " + Surname);
+                System.out.println("ContactNo: " + ContactNo);
+                System.out.println("EntryDate: " + EntryDate);
                 if (ExitDate == null ){
-                    System.out.println("Current resident " + "\t");
+                    System.out.println("Current resident ");
                 }
                 else{
-                    System.out.println(ExitDate + "\t");
+                    System.out.println("ExitDate: " + ExitDate + "\t");
                 }
-                System.out.println(ContactNo + "\t");
+
+                System.out.println("");
 
             }
             resultSet.close();
@@ -81,32 +79,39 @@ class ResidentView implements ViewInterface {
         return new ViewData("ResidentMenu", "");
     }
 
-    Map<String, Object> getWhereParameters() throws Exception {
-        System.out.println("Filter conditions:");
+    Map<String, Object> getWhereParametersForSelect() throws Exception {
+        System.out.println("Enter the ID that would you like to select: ");
         Integer ResidentID = getInteger("ResidentId : ", false);
-       /* String Name = getString("Name: ", false);
-        String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
-        String Surname = getString("Surname: ", false);
-        Date EntryDate = getDate("EntryDate: ", false);
-        Date ExitDate = getDate("ExitDate: ", true); //null hatası varsa varsa burdan
-        String ContactNo = getString("ContactNo: ", false);*/
-
 
         Map<String, Object> whereParameters = new HashMap<>();
         if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
-        /*if (Name != null) whereParameters.put("Name", Name);
-        if (MiddleName != null) whereParameters.put("MiddleName", MiddleName);
-        if (Surname != null) whereParameters.put("Surname", Surname);
-        if (EntryDate != null) whereParameters.put("EntryDate", EntryDate);
-        if (ExitDate != null) whereParameters.put("ExitDate", ExitDate);
-        if (ContactNo != null) whereParameters.put("ContactNo", ContactNo);*/
+
+        return whereParameters;
+    }
+
+    Map<String, Object> getWhereParametersForUpdate() throws Exception {
+        System.out.println("Enter the ID that would you like to update:");
+        Integer ResidentID = getInteger("ResidentId : ", false);
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
+
+        return whereParameters;
+    }
+
+    Map<String, Object> getWhereParametersForDelete() throws Exception {
+        System.out.println("Enter the ID that would you like to delete: ");
+        Integer ResidentID = getInteger("ResidentId : ", false);
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
 
         return whereParameters;
     }
 
     ViewData selectGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("whereParameters", getWhereParameters());
+        parameters.put("whereParameters", getWhereParametersForSelect());
 
         return new ViewData("Resident", "select", parameters);
     }
@@ -178,14 +183,14 @@ class ResidentView implements ViewInterface {
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);
-        parameters.put("whereParameters", getWhereParameters());
+        parameters.put("whereParameters", getWhereParametersForUpdate());
 
         return new ViewData("Resident", "update", parameters);
     }
 
     ViewData deleteGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("whereParameters", getWhereParameters());
+        parameters.put("whereParameters", getWhereParametersForDelete());
 
         return new ViewData("Resident", "delete", parameters);
     }

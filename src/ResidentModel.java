@@ -2,13 +2,28 @@ package src;
 
 import java.sql.*;
 import java.util.*;
+import java.text.ParseException;
+
+import static javax.swing.UIManager.getString;
 
 
 class ResidentModel implements ModelInterface {
 
-	public ResultSet select(Map<String, Object> whereParameters, String whichResident_) throws Exception {
+	String which;
+	Scanner scanner = new Scanner(System.in);
 
-		String whichResident = "dbo.Resident" + whichResident_.trim();
+	public void wanterApartment() {
+
+		System.out.printf("Which apartment?: ");
+		which = scanner.nextLine();
+
+	}
+
+	public ResultSet select(Map<String, Object> whereParameters) throws Exception {
+
+		wanterApartment();
+
+		String whichResident = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT ");
@@ -28,10 +43,13 @@ class ResidentModel implements ModelInterface {
 		
 		return result;
 	}
-		
-	public int insert(String fieldNames, List<Object> rows, String whichResident_) throws Exception
+
+	public int insert(String fieldNames, List<Object> rows) throws Exception
 	{
-		String whichResident = "dbo.Resident" + whichResident_.trim();
+
+		wanterApartment();
+
+		String whichResident = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" INSERT INTO " + whichResident +" (" + fieldNames + ") " );
@@ -76,9 +94,9 @@ class ResidentModel implements ModelInterface {
 		return rowCount;
 	}
 
-	public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters, String whichResident_) throws Exception
+	public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception
 	{
-		String whichResident = "dbo.Resident" + whichResident_.trim();
+		String whichResident = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" UPDATE " + whichResident+ " SET ");
@@ -105,9 +123,9 @@ class ResidentModel implements ModelInterface {
 	}
 
 
-	public int delete(Map<String,Object> whereParameters, String whichResident_) throws Exception
+	public int delete(Map<String,Object> whereParameters) throws Exception
 	{
-		String whichResident = "dbo.Resident" + whichResident_.trim();
+		String whichResident = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" DELETE FROM " + whichResident);
@@ -127,9 +145,8 @@ class ResidentModel implements ModelInterface {
 		return rowCount;
 	}
 
-
-	public ModelData execute(ViewData viewData, String which_) throws Exception {
-		return ModelInterface.super.execute(viewData, which_);
+	public ModelData execute(ViewData viewData) throws Exception {
+		return ModelInterface.super.execute(viewData);
 	}
 
 	@Override
