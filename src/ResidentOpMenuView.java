@@ -1,11 +1,13 @@
 package src;
 
+import java.sql.SQLOutput;
+import java.text.ParseException;
 import java.util.*;
+class ResidentOpMenuView implements ViewInterface {
 
-public class ResidentOpMenuView implements ViewInterface {
 
-    @Override
     public ViewData create(ModelData modelData, String functionName, String operationName, String whichResident) throws Exception {
+        System.out.println("Resident Op Menu icindeyiz");
 
         Integer choice;
         do {
@@ -63,5 +65,35 @@ public class ResidentOpMenuView implements ViewInterface {
     @Override
     public String toString() {
         return "Main Menu View";
+    }
+
+    @Override
+    public Integer getInteger(String prompt, boolean allowNulls) throws ParseException {
+        return ViewInterface.super.getInteger(prompt, allowNulls);
+    }
+
+    @Override
+    public Double getDouble(String prompt, boolean allowNulls) throws ParseException {
+        return ViewInterface.super.getDouble(prompt, allowNulls);
+    }
+
+    @Override
+    public Boolean getBoolean(String prompt, boolean allowNulls) throws ParseException {
+        return ViewInterface.super.getBoolean(prompt, allowNulls);
+    }
+
+    @Override
+    public Date getDate(String prompt, boolean allowNulls) throws ParseException {
+        return ViewInterface.super.getDate(prompt, allowNulls);
+    }
+
+    @Override
+    public String getString(String prompt, boolean allowNulls) throws ParseException {
+        return ViewInterface.super.getString(prompt, allowNulls);
+    }
+
+    @Override
+    public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
+        return null;
     }
 }
