@@ -207,6 +207,6 @@ class ResidentView implements ViewInterface {
 
     @Override
     public String toString() {
-        return "Employee View";
+        return "Resident View";
     }
 }

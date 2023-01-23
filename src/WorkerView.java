@@ -1,11 +1,31 @@
 package src;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.Period;
 import java.sql.ResultSet;
 import java.util.*;
+import java.text.SimpleDateFormat;
 
 
 class WorkerView implements ViewInterface {
-    //String whichResident_ = whichResident;
+
+    String which;
+    Scanner scanner = new Scanner(System.in);
+
+    public void whichWorker() {
+
+        System.out.printf("Which worker?: ");
+        which = scanner.nextLine();
+
+    }
+    public static int calculateAge(String birthdate){
+        LocalDate dateObj = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = dateObj.format(formatter);
+        System.out.println(date);
+        LocalDate dob = LocalDate.parse((CharSequence) birthdate);
+        return Period.between(dob, LocalDate.parse(date)).getYears();
+    }
     @Override
     public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
         switch(operationName) {
@@ -24,112 +44,160 @@ class WorkerView implements ViewInterface {
 
     ViewData selectOperation(ModelData modelData) throws Exception {
         ResultSet resultSet = modelData.resultSet;
+        whichWorker();
+        String _whichWorker = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
+        Integer intID = Integer.parseInt(ID);
+
+
 
         if (resultSet != null) {
             while (resultSet.next()) {
                 // Retrieve by column name
-                int ResidentID = resultSet.getInt("ResidentId");
+                int WorkerID = resultSet.getInt(intID);
                 String Name = resultSet.getString("Name");
                 String MiddleName = resultSet.getString("MiddleName");
                 String Surname = resultSet.getString("Surname");
-                Date EntryDate = resultSet.getDate("EntryDate");
-                Date ExitDate = resultSet.getDate("ExitDate");
-                String ContactNo = resultSet.getString("ContactNo");
-
+                float Salary = resultSet.getFloat("Salary");
+                int AptNo = resultSet.getInt("AptNo");
+                Date JobTime = resultSet.getDate("JobTime");
+                String IbanNo = resultSet.getString("IbanNo");
+                Date BirthDate = resultSet.getDate("Birthdate");
+                String Gender = resultSet.getString("Gender");
+                Integer Age;
+                String date = BirthDate.toString();
+                Age = calculateAge(date);
 
                 // Display values
-                System.out.print(ResidentID + "\t");
-                System.out.print(Name + "\t");
-                if (MiddleName == null){
-                    System.out.println(" " + "\t");
+                System.out.println(ID+ ": " + WorkerID);
+                System.out.print("Name: " + Name);
+                if (MiddleName != null){
+                    System.out.print(" " + MiddleName);
                 }
-                else{
-                    System.out.print(MiddleName + "\t");
-                }
-                System.out.println(Surname + "\t");
-                System.out.println(EntryDate + "\t");
-                if (ExitDate == null ){
-                    System.out.println("Current resident " + "\t");
-                }
-                else{
-                    System.out.println(ExitDate + "\t");
-                }
-                System.out.println(ContactNo + "\t");
+                System.out.println("\nSurname: " + Surname);
+                System.out.println("Salary: " + Salary);
+                System.out.println("AptNo: " + AptNo);
+                System.out.println("JobTime: " + JobTime);
+                System.out.println("IbanNo: " + IbanNo);
+                System.out.println("BirthDate: " + BirthDate);
+                System.out.println("Gender: " + Gender);
+
 
             }
             resultSet.close();
         }
 
-        return new ViewData("ResidentMenu", "");
+        return new ViewData("WorkerMenu", "");
     }
 
     ViewData insertOperation(ModelData modelData) throws Exception {
         System.out.println("Number of inserted rows is " + modelData.recordCount);
 
-        return new ViewData("ResidentMenu", "");
+        return new ViewData("WorkerMenu", "");
     }
 
     ViewData updateOperation(ModelData modelData) throws Exception {
         System.out.println("Number of updated rows is " + modelData.recordCount);
 
-        return new ViewData("ResidentMenu", "");
+        return new ViewData("WorkerMenu", "");
     }
 
     ViewData deleteOperation(ModelData modelData) throws Exception {
         System.out.println("Number of deleted rows is " + modelData.recordCount);
 
-        return new ViewData("ResidentMenu", "");
+        return new ViewData("WorkerMenu", "");
     }
 
     Map<String, Object> getWhereParameters() throws Exception {
+        whichWorker();
+        String _whichWorker = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
+        Integer intID = Integer.parseInt(ID);
+
         System.out.println("Filter conditions:");
-        Integer ResidentID = getInteger("ResidentId : ", true);
-        String Name = getString("Name: ", true);
+        Integer WorkerID = getInteger(ID +" : ", false);
+        String Name = getString("Name: ", false);
         String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
-        String Surname = getString("Surname: ", true);
-        Date EntryDate = getDate("EntryDate: ", true);
-        Date ExitDate = getDate("ExitDate: ", true); //null hatası varsa varsa burdan
-        String ContactNo = getString("ContactNo: ", true);
+        String Surname = getString("Surname: ", false);
+        Float Salary = getFloat("Salary: ", false);
+        Integer AptNo = getInteger("AptNo", true);
+        Date JobTime = getDate("JobTime", false);
+        String IbanNo = getString("IbanNo", false);
+        Date BirthDate = getDate("Birthdate", false);
+        String Gender = getString("Gender", false);
+        Integer Age;
+        String date = BirthDate.toString();
+        Age = calculateAge(date);
 
         Map<String, Object> whereParameters = new HashMap<>();
-        if (ResidentID != null) whereParameters.put("EmployeeID", ResidentID);
+        if (WorkerID != null) whereParameters.put(ID , WorkerID);
         if (Name != null) whereParameters.put("Name", Name);
         if (MiddleName != null) whereParameters.put("MiddleName", MiddleName);
         if (Surname != null) whereParameters.put("Surname", Surname);
-        if (EntryDate != null) whereParameters.put("EntryDate", EntryDate);
-        if (ExitDate != null) whereParameters.put("ExitDate", ExitDate);
-        if (ContactNo != null) whereParameters.put("ContactNo", ContactNo);
+        if (Salary != null) whereParameters.put("Salary", Salary);
+        if (AptNo != null) whereParameters.put("AptNo", AptNo);
+        if (JobTime != null) whereParameters.put("JobTime", JobTime);
+        if (IbanNo != null) whereParameters.put("IbanNo", IbanNo);
+        if (BirthDate != null) whereParameters.put("BirthDate", BirthDate);
+        if (Gender != null) whereParameters.put("Gender", Gender);
+        if (Age != null) whereParameters.put("Age", Age);
 
         return whereParameters;
     }
 
     ViewData selectGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
+
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Employee", "select", parameters);
+        return new ViewData("Worker", "select", parameters);
     }
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+        whichWorker();
+        String _whichWorker = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
+        Integer intID = Integer.parseInt(ID);
+        parameters.put("fieldNames",  ID +", Name, MiddleName, Surname, Salary, AptNo, JobTime, IbanNo, BirthDate, Gender, Age");
 
         List<Object> rows = new ArrayList<>();
 
-        Integer ResidentID;
-        String Name, MiddleName, Surname, ContactNo;
-        Date EntryDate, ExitDate;
+        Integer WorkerID;
+        String Name, MiddleName, Surname, IbanNo, Gender;
+        Date JobTime,BirthDate;
+        Float Salary;
+        Integer AptNo, Age;
         while(true) {
             System.out.println("Fields to insert:");
-            ResidentID = getInteger("ResidentID: ", true);
-            if(ResidentID == null)
+            WorkerID = getInteger(ID +": ", false);
+            if(WorkerID == null)
                 break;
-            Name = getString("Name: ", true);
+            Name = getString("Name: ", false);
+            if(Name == null)
+                break;
             MiddleName = getString("MiddleName: ", true);
-            Surname = getString("MiddleName: ", true);
-            EntryDate = getDate("EntryDate: ", true);
-            ExitDate = getDate("ExitDate: ", true);
-            ContactNo = getString("ContactNo: ", true);
+            Surname = getString("MiddleName: ", false);
+            if(Surname == null)
+                break;
+            Salary = getFloat("Salary: ", false);
+            if(Salary == null)
+                break;
+            AptNo = getInteger("AptNo: ", true);
+            JobTime = getDate("JobTime: ", false);
+            if(JobTime == null)
+                break;
+            IbanNo = getString("IbanNo: ", false);
+            if(IbanNo== null)
+                break;
+            BirthDate = getDate("BirthDate: ", false);
+            if(BirthDate== null)
+                break;
+            Gender = getString("Gender", false);
+            if(Gender == null)
+                break;
+            Age = getInteger("Age", true);
+
 
             /*while(!(authority >= 0) || !(authority <= 1)){
                 System.out.println("Authority must be either 0 or 1!!!");
@@ -137,53 +205,68 @@ class WorkerView implements ViewInterface {
             }*/
             System.out.println();
 
-            if (ResidentID != null && Name != null && MiddleName != null && Surname != null && EntryDate != null && ExitDate != null && ContactNo != null) {
-                rows.add(new Resident(ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo));
+            if (WorkerID != null && Name != null && MiddleName != null && Surname != null && Salary != null && AptNo != null && JobTime != null && IbanNo != null && BirthDate != null && Gender != null) {
+                rows.add(new Worker(WorkerID, Name, MiddleName, Surname, Salary, AptNo, JobTime,IbanNo,BirthDate,Gender, Age));
             }
         }
 
         parameters.put("rows", rows);
 
-        return new ViewData("Resident", "insert", parameters);
+        return new ViewData("Worker", "insert", parameters);
     }
 
     ViewData updateGUI(ModelData modelData) throws Exception {
+        whichWorker();
+        String _whichWorker = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
+        Integer intID = Integer.parseInt(ID);
+
         System.out.println("Fields to update:");
-        Integer employeeID = getInteger("EMployee ID: ", true);
-        String firstName = getString("First Name : ", true);
-        String lastName = getString("Last Name : ", true);
-        String eMail = getString("E-mail: ", true);
-        String experienceLevel = getString("Experience Level(Junior - Senior): ", true);
-        String location = getString("Location: ", true);
-        Integer authority = getInteger("Authority(0 - 1): ", true);
-        System.out.println();
+
+        Integer WorkerID = getInteger(ID +" : ", false);
+        String Name = getString("Name: ", false);
+        String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
+        String Surname = getString("Surname: ", false);
+        Float Salary = getFloat("Salary: ", false);
+        Integer AptNo = getInteger("AptNo", true);
+        Date JobTime = getDate("JobTime", false);
+        String IbanNo = getString("IbanNo", false);
+        Date BirthDate = getDate("Birthdate", false);
+        String Gender = getString("Gender", false);
+        Integer Age;
+        String date = BirthDate.toString();
+        Age = calculateAge(date);
 
         Map<String, Object> updateParameters = new HashMap<>();
-        if (employeeID != null) updateParameters.put("EmployeeID", employeeID);
-        if (firstName != null) updateParameters.put("FirstName", firstName);
-        if (lastName != null) updateParameters.put("FastName", lastName);
-        if (eMail != null) updateParameters.put("Email", eMail);
-        if (experienceLevel != null) updateParameters.put("ExperienceLevel", experienceLevel);
-        if (location != null) updateParameters.put("Location", location);
-        if (authority != null) updateParameters.put("Authority", authority);
+        if (WorkerID != null) updateParameters.put(ID , WorkerID);
+        if (Name != null) updateParameters.put("Name", Name);
+        if (MiddleName != null) updateParameters.put("MiddleName", MiddleName);
+        if (Surname != null) updateParameters.put("Surname", Surname);
+        if (Salary != null) updateParameters.put("Salary", Salary);
+        if (AptNo != null) updateParameters.put("AptNo", AptNo);
+        if (JobTime != null) updateParameters.put("JobTime", JobTime);
+        if (IbanNo != null) updateParameters.put("IbanNo", IbanNo);
+        if (BirthDate != null) updateParameters.put("BirthDate", BirthDate);
+        if (Gender != null) updateParameters.put("Gender", Gender);
+        if (Age != null) updateParameters.put("Age", Age);
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Employee", "update", parameters);
+        return new ViewData("Worker", "update", parameters);
     }
 
     ViewData deleteGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Resident", "delete", parameters);
+        return new ViewData("Worker", "delete", parameters);
     }
 
 
     @Override
     public String toString() {
-        return "Employee View";
+        return "Worker View";
     }
 }

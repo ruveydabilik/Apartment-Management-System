@@ -55,6 +55,30 @@ interface ViewInterface {
 		
 		return inputValue;
 	}
+	public default Float getFloat(String prompt, boolean allowNulls)  throws ParseException {
+		Float inputValue;
+		do {
+			System.out.print(prompt);
+			String input = scanner.nextLine();
+			if (allowNulls && input.trim().equals("")) {
+				return null;
+			}
+			if (!allowNulls && input.trim().equals("")) {
+				inputValue = null;
+			}
+			else {
+				try {
+					inputValue = Float.parseFloat(input);
+				}
+				catch(Exception e) {
+					inputValue = null;
+				}
+			}
+		}
+		while (inputValue == null);
+
+		return inputValue;
+	}
 
 	public default Boolean getBoolean(String prompt, boolean allowNulls)  throws ParseException {
 		Boolean inputValue;

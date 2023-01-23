@@ -1,4 +1,4 @@
-/*
+
 package src;
 
 import java.sql.*;
@@ -6,20 +6,31 @@ import java.util.*;
 
 
 class WorkerModel implements ModelInterface {
+    String which;
+    Scanner scanner = new Scanner(System.in);
+
+    public void whichWorker() {
+
+        System.out.printf("Which worker?: ");
+        which = scanner.nextLine();
+
+    }
 
     public ResultSet select(Map<String, Object> whereParameters) throws Exception {
 
-        String whichWorker = "dbo." + whichWorker_.trim();
+        whichWorker();
+        String _whichWorker = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT ");
-        sql.append("	ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
-        sql.append(" FROM " + whichWorker);
+        sql.append(ID + " ,Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+        sql.append(" FROM " + _whichWorker);
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
 
-        sql.append("ORDER BY ResidentID");
+        sql.append("ORDER BY " + ID);
         //System.out.println(sql.toString() + "\n");
 
         // execute constructed SQL statement
@@ -32,26 +43,27 @@ class WorkerModel implements ModelInterface {
     }
 
 
-    public int insert(String fieldNames, List<Object> rows) throws Exception
-    {
-        String whichWorker = "dbo." + whichWorker_.trim();
+    public int insert(String fieldNames, List<Object> rows) throws Exception {
+        whichWorker();
+        String _whichWorker = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" INSERT INTO "+ whichWorker +" (" + fieldNames + ") " );
-      //  sql.append("	ResidentId, Name , MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+        sql.append(" INSERT INTO " + _whichWorker + " (" + fieldNames + ") ");
+        //  sql.append("	ResidentId, Name , MiddleName, Surname, EntryDate, ExitDate, ContactNo");
         sql.append(" VALUES ");
 
         String[] fieldList = fieldNames.split(",");
 
         int rowCount = 0;
-        for (int i=0; i<rows.size(); i++) {
+        for (int i = 0; i < rows.size(); i++) {
             if (rows.get(i) instanceof Resident) {
                 rowCount++;
 
-                Resident Resident = (Resident)rows.get(i);
+                Resident Resident = (Resident) rows.get(i);
 
                 sql.append("(");
-                for (int j=0; j<fieldList.length; j++) {
+                for (int j = 0; j < fieldList.length; j++) {
                     String fieldName = fieldList[j].trim();
                     sql.append(DatabaseUtilities.formatField(Resident.getByName(fieldName)));
                     if (j < fieldList.length - 1) {
@@ -80,13 +92,14 @@ class WorkerModel implements ModelInterface {
     }
 
 
-    public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception
-    {
-        String whichWorker = "dbo." + whichWorker_.trim();
+    public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
+        whichWorker();
+        String _whichWorker = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
 
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" UPDATE "+ whichWorker + " SET ");
+        sql.append(" UPDATE " + _whichWorker + " SET ");
         int appendCount = 0;
         for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
             sql.append(entry.getKey() + " = " + DatabaseUtilities.formatField(entry.getValue()));
@@ -110,13 +123,13 @@ class WorkerModel implements ModelInterface {
     }
 
 
-    public int delete(Map<String,Object> whereParameters) throws Exception
-    {
-
-        String whichWorker = "dbo." + whichWorker_.trim();
+    public int delete(Map<String, Object> whereParameters) throws Exception {
+        whichWorker();
+        String _whichWorker = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" DELETE FROM " + whichWorker);
+        sql.append(" DELETE FROM " + _whichWorker);
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -144,4 +157,3 @@ class WorkerModel implements ModelInterface {
     }
 }
 
-*/

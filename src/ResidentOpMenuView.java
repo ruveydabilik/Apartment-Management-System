@@ -32,31 +32,10 @@ class ResidentOpMenuView implements ViewInterface {
 
         switch (choice.intValue()) {
             case 1: operationName = "select";	break;
-            case 2: {
-                //aptNo = getInteger("Which apartment would you like to select a resident?: ", false);
-                operationName = "select.gui";
-                //whichResident = "Resident" + aptNo.toString();
-                break;
-            }
-            case 3: {
-                //aptNo = getInteger("Which apartment would you like to insert a resident?: ", false);
-                operationName = "insert.gui";
-                //whichResident = "Resident" + aptNo.toString();
-                break;
-            }
-            case 4:
-            {
-                //aptNo = getInteger("Which apartment would you like to update a resident?: ", false);
-                operationName = "update.gui";
-                //whichResident = "Resident" + aptNo.toString();
-                break;
-            }
-            case 5: {
-                //aptNo = getInteger("Which apartment would you like to delete a resident?: ", false);
-                operationName = "delete.gui";
-                //whichResident = "Resident" + aptNo.toString();
-                break;
-            }
+            case 2: operationName = "select.gui"; break;
+            case 3: operationName = "insert.gui"; break;
+            case 4: operationName = "update.gui"; break;
+            case 5: operationName = "delete.gui"; break;
             case 6: return new ViewData("MainMenu", "");
             default: return new ViewData(null, null);
         }

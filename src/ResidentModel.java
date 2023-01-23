@@ -100,7 +100,7 @@ class ResidentModel implements ModelInterface {
 		//String whichResident = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
-		sql.append(" UPDATE " + whereParameters.get("ResidentID") + " SET ");
+		sql.append(" UPDATE " + whereParameters.get("ResidentID") + " SET "); //sql hatası vermişti
 		int appendCount = 0;
 		for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
 			sql.append(entry.getKey() + " = " + DatabaseUtilities.formatField(entry.getValue()));
