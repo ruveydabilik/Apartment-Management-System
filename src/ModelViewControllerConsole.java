@@ -22,13 +22,9 @@ public class ModelViewControllerConsole {
         router.put("WorkerMenu", new Controller(new WorkerOpMenuView(), new NopModel()));
 
         router.put("Resident", new Controller(new ResidentView(), new ResidentModel()));
-        //router.put("Worker", new Controller(new WorkerView(), new WorkerModel()));
-
-        //YUKARDAKİNİ AÇMAYI UNUTMAAAAAAAAAAAAAAA
-        //UNUTMA
+        router.put("Worker", new Controller(new WorkerView(), new WorkerModel()));
 
         ViewData viewData = new ViewData("MainMenu", "");
-
 
         do {
 

@@ -6,23 +6,13 @@ import java.text.ParseException;
 
 import static javax.swing.UIManager.getString;
 
-
 class ResidentModel implements ModelInterface {
 
 	String which;
-	Scanner scanner = new Scanner(System.in);
-
-	public void wanterApartment() {
-
-		System.out.printf("Which apartment?: ");
-		which = scanner.nextLine();
-
-	}
 
 	public ResultSet select(Map<String, Object> whereParameters) throws Exception {
 
-		wanterApartment();
-
+		which = ResidentQuestioner.storage();
 		String whichApartment = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
@@ -46,8 +36,7 @@ class ResidentModel implements ModelInterface {
 
 	public int insert(String fieldNames, List<Object> rows) throws Exception
 	{
-
-		wanterApartment();
+		which = ResidentQuestioner.storage();
 
 		String whichResident = "dbo.Resident" + which.trim();
 		// construct SQL statement
@@ -97,10 +86,11 @@ class ResidentModel implements ModelInterface {
 	public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception
 	{
 
-		//String whichResident = "dbo.Resident" + which.trim();
+		String whichResident = "dbo.Resident" + which;
 		// construct SQL statement
+
 		StringBuilder sql = new StringBuilder();
-		sql.append(" UPDATE " + whereParameters.get("ResidentID") + " SET "); //sql hatası vermişti
+		sql.append(" UPDATE " + whichResident + " SET "); //sql hatası vermişti
 		int appendCount = 0;
 		for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
 			sql.append(entry.getKey() + " = " + DatabaseUtilities.formatField(entry.getValue()));

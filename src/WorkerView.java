@@ -10,14 +10,6 @@ import java.text.SimpleDateFormat;
 class WorkerView implements ViewInterface {
 
     String which;
-    Scanner scanner = new Scanner(System.in);
-
-    public void whichWorker() {
-
-        System.out.printf("Which worker?: ");
-        which = scanner.nextLine();
-
-    }
     public static int calculateAge(String birthdate){
         LocalDate dateObj = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -44,17 +36,15 @@ class WorkerView implements ViewInterface {
 
     ViewData selectOperation(ModelData modelData) throws Exception {
         ResultSet resultSet = modelData.resultSet;
-        whichWorker();
+        which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
-        Integer intID = Integer.parseInt(ID);
-
-
+        //Integer intID = Integer.parseInt(ID);
 
         if (resultSet != null) {
             while (resultSet.next()) {
                 // Retrieve by column name
-                int WorkerID = resultSet.getInt(intID);
+                int WorkerID = resultSet.getInt(ID);
                 String Name = resultSet.getString("Name");
                 String MiddleName = resultSet.getString("MiddleName");
                 String Surname = resultSet.getString("Surname");
@@ -64,9 +54,9 @@ class WorkerView implements ViewInterface {
                 String IbanNo = resultSet.getString("IbanNo");
                 Date BirthDate = resultSet.getDate("Birthdate");
                 String Gender = resultSet.getString("Gender");
-                Integer Age;
-                String date = BirthDate.toString();
-                Age = calculateAge(date);
+                //Integer Age;
+                //String date = BirthDate.toString();
+                //Age = calculateAge(date);
 
                 // Display values
                 System.out.println(ID+ ": " + WorkerID);
@@ -81,7 +71,6 @@ class WorkerView implements ViewInterface {
                 System.out.println("IbanNo: " + IbanNo);
                 System.out.println("BirthDate: " + BirthDate);
                 System.out.println("Gender: " + Gender);
-
 
             }
             resultSet.close();
@@ -109,14 +98,14 @@ class WorkerView implements ViewInterface {
     }
 
     Map<String, Object> getWhereParameters() throws Exception {
-        whichWorker();
+        which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
-        Integer intID = Integer.parseInt(ID);
+        //Integer intID = Integer.parseInt(ID);
 
         System.out.println("Filter conditions:");
         Integer WorkerID = getInteger(ID +" : ", false);
-        String Name = getString("Name: ", false);
+        /*String Name = getString("Name: ", false);
         String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
         String Surname = getString("Surname: ", false);
         Float Salary = getFloat("Salary: ", false);
@@ -127,11 +116,11 @@ class WorkerView implements ViewInterface {
         String Gender = getString("Gender", false);
         Integer Age;
         String date = BirthDate.toString();
-        Age = calculateAge(date);
+        Age = calculateAge(date);*/
 
         Map<String, Object> whereParameters = new HashMap<>();
         if (WorkerID != null) whereParameters.put(ID , WorkerID);
-        if (Name != null) whereParameters.put("Name", Name);
+        /*if (Name != null) whereParameters.put("Name", Name);
         if (MiddleName != null) whereParameters.put("MiddleName", MiddleName);
         if (Surname != null) whereParameters.put("Surname", Surname);
         if (Salary != null) whereParameters.put("Salary", Salary);
@@ -140,7 +129,7 @@ class WorkerView implements ViewInterface {
         if (IbanNo != null) whereParameters.put("IbanNo", IbanNo);
         if (BirthDate != null) whereParameters.put("BirthDate", BirthDate);
         if (Gender != null) whereParameters.put("Gender", Gender);
-        if (Age != null) whereParameters.put("Age", Age);
+        if (Age != null) whereParameters.put("Age", Age);*/
 
         return whereParameters;
     }
@@ -155,11 +144,11 @@ class WorkerView implements ViewInterface {
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        whichWorker();
+        which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
-        Integer intID = Integer.parseInt(ID);
-        parameters.put("fieldNames",  ID +", Name, MiddleName, Surname, Salary, AptNo, JobTime, IbanNo, BirthDate, Gender, Age");
+        //Integer intID = Integer.parseInt(ID);
+        parameters.put("fieldNames",  ID +", Name, MiddleName, Surname, Salary, AptNo, JobTime, IbanNo, BirthDate, Gender");
 
         List<Object> rows = new ArrayList<>();
 
@@ -167,17 +156,14 @@ class WorkerView implements ViewInterface {
         String Name, MiddleName, Surname, IbanNo, Gender;
         Date JobTime,BirthDate;
         Float Salary;
-        Integer AptNo, Age;
+        Integer AptNo;
         while(true) {
             System.out.println("Fields to insert:");
-            WorkerID = getInteger(ID +": ", false);
-            if(WorkerID == null)
-                break;
             Name = getString("Name: ", false);
             if(Name == null)
                 break;
             MiddleName = getString("MiddleName: ", true);
-            Surname = getString("MiddleName: ", false);
+            Surname = getString("Surname: ", false);
             if(Surname == null)
                 break;
             Salary = getFloat("Salary: ", false);
@@ -196,8 +182,6 @@ class WorkerView implements ViewInterface {
             Gender = getString("Gender", false);
             if(Gender == null)
                 break;
-            Age = getInteger("Age", true);
-
 
             /*while(!(authority >= 0) || !(authority <= 1)){
                 System.out.println("Authority must be either 0 or 1!!!");
@@ -205,8 +189,8 @@ class WorkerView implements ViewInterface {
             }*/
             System.out.println();
 
-            if (WorkerID != null && Name != null && MiddleName != null && Surname != null && Salary != null && AptNo != null && JobTime != null && IbanNo != null && BirthDate != null && Gender != null) {
-                rows.add(new Worker(WorkerID, Name, MiddleName, Surname, Salary, AptNo, JobTime,IbanNo,BirthDate,Gender, Age));
+            if ( Name != null && MiddleName != null && Surname != null && Salary != null && AptNo != null && JobTime != null && IbanNo != null && BirthDate != null && Gender != null) {
+                rows.add(new Worker(0, Name, MiddleName, Surname, Salary, AptNo, JobTime,IbanNo,BirthDate,Gender));
             }
         }
 
@@ -216,10 +200,10 @@ class WorkerView implements ViewInterface {
     }
 
     ViewData updateGUI(ModelData modelData) throws Exception {
-        whichWorker();
+        which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
-        Integer intID = Integer.parseInt(ID);
+        //Integer intID = Integer.parseInt(ID);
 
         System.out.println("Fields to update:");
 
@@ -228,14 +212,14 @@ class WorkerView implements ViewInterface {
         String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
         String Surname = getString("Surname: ", false);
         Float Salary = getFloat("Salary: ", false);
-        Integer AptNo = getInteger("AptNo", true);
-        Date JobTime = getDate("JobTime", false);
-        String IbanNo = getString("IbanNo", false);
-        Date BirthDate = getDate("Birthdate", false);
-        String Gender = getString("Gender", false);
-        Integer Age;
-        String date = BirthDate.toString();
-        Age = calculateAge(date);
+        Integer AptNo = getInteger("AptNo: ", true);
+        Date JobTime = getDate("JobTime: ", false);
+        String IbanNo = getString("IbanNo: ", false);
+        Date BirthDate = getDate("Birthdate: ", false);
+        String Gender = getString("Gender: ", false);
+        //Integer Age;
+        //String date = BirthDate.toString();
+        //Age = calculateAge(date);
 
         Map<String, Object> updateParameters = new HashMap<>();
         if (WorkerID != null) updateParameters.put(ID , WorkerID);
@@ -248,7 +232,7 @@ class WorkerView implements ViewInterface {
         if (IbanNo != null) updateParameters.put("IbanNo", IbanNo);
         if (BirthDate != null) updateParameters.put("BirthDate", BirthDate);
         if (Gender != null) updateParameters.put("Gender", Gender);
-        if (Age != null) updateParameters.put("Age", Age);
+        //if (Age != null) updateParameters.put("Age", Age);
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);

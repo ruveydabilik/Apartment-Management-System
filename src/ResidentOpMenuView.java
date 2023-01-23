@@ -31,11 +31,31 @@ class ResidentOpMenuView implements ViewInterface {
         userInput.put("mainMenuChoice", choice);
 
         switch (choice.intValue()) {
-            case 1: operationName = "select";	break;
-            case 2: operationName = "select.gui"; break;
-            case 3: operationName = "insert.gui"; break;
-            case 4: operationName = "update.gui"; break;
-            case 5: operationName = "delete.gui"; break;
+            case 1: {
+                ResidentQuestioner.wanterApartment();
+                operationName = "select";
+                break;
+            }
+            case 2: {
+                ResidentQuestioner.wanterApartment();
+                operationName = "select.gui";
+                break;
+            }
+            case 3: {
+                ResidentQuestioner.wanterApartment();
+                operationName = "insert.gui";
+                break;
+            }
+            case 4: {
+                ResidentQuestioner.wanterApartment();
+                operationName = "update.gui";
+                break;
+            }
+            case 5: {
+                ResidentQuestioner.wanterApartment();
+                operationName = "delete.gui";
+                break;
+            }
             case 6: return new ViewData("MainMenu", "");
             default: return new ViewData(null, null);
         }

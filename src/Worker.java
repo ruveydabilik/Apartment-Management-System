@@ -13,7 +13,6 @@ public class Worker {
     private String ibanNo;
     private Date birthdate;
     private String gender;
-    private int age;
 
     Worker(){}
 
@@ -41,7 +40,6 @@ public class Worker {
         this.ibanNo = ibanNo;
         this.birthdate = birthdate;
         this.gender = gender;
-        this.age = age;
     }
 
     public Worker(String name, String middleName, String surname, Float salary, int aptNo, Date jobTime, String ibanNo, Date birthdate, String gender, int age) {
@@ -54,7 +52,6 @@ public class Worker {
         this.ibanNo = ibanNo;
         this.birthdate = birthdate;
         this.gender = gender;
-        this.age = age;
     }
 
     public int getWorkerID() {
@@ -137,14 +134,6 @@ public class Worker {
         this.gender = gender;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     @Override
     public String toString() {
         return "Worker{" +
@@ -158,7 +147,6 @@ public class Worker {
                 ", ibanNo='" + ibanNo + '\'' +
                 ", birthdate=" + birthdate +
                 ", gender='" + gender + '\'' +
-                ", age=" + age +
                 '}';
     }
 }

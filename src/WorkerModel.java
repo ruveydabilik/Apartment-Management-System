@@ -7,30 +7,23 @@ import java.util.*;
 
 class WorkerModel implements ModelInterface {
     String which;
-    Scanner scanner = new Scanner(System.in);
-
-    public void whichWorker() {
-
-        System.out.printf("Which worker?: ");
-        which = scanner.nextLine();
-
-    }
 
     public ResultSet select(Map<String, Object> whereParameters) throws Exception {
 
-        whichWorker();
+        which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
+        //Integer intID = Integer.parseInt(ID);
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT ");
-        sql.append(ID + " ,Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+        sql.append(ID +" , Name, MiddleName, Surname, Salary, AptNo, JobTime, IbanNo, BirthDate, Gender");
         sql.append(" FROM " + _whichWorker);
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
 
-        sql.append("ORDER BY " + ID);
+        sql.append(" ORDER BY " + ID);
         //System.out.println(sql.toString() + "\n");
 
         // execute constructed SQL statement
@@ -44,9 +37,10 @@ class WorkerModel implements ModelInterface {
 
 
     public int insert(String fieldNames, List<Object> rows) throws Exception {
-        whichWorker();
+        which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
+        Integer intID = Integer.parseInt(ID);
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" INSERT INTO " + _whichWorker + " (" + fieldNames + ") ");
@@ -93,9 +87,10 @@ class WorkerModel implements ModelInterface {
 
 
     public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
-        whichWorker();
+        which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
+        //Integer intID = Integer.parseInt(ID);
 
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
@@ -111,7 +106,6 @@ class WorkerModel implements ModelInterface {
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
         //System.out.println(sql.toString());
 
-
         // execute constructed SQL statement
         Connection connection = DatabaseUtilities.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
@@ -122,11 +116,11 @@ class WorkerModel implements ModelInterface {
         return rowCount;
     }
 
-
     public int delete(Map<String, Object> whereParameters) throws Exception {
-        whichWorker();
+        which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
+        //Integer intID = Integer.parseInt(ID);
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" DELETE FROM " + _whichWorker);

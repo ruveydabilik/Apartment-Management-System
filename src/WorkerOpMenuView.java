@@ -6,6 +6,7 @@ public class WorkerOpMenuView implements ViewInterface {
 
     public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
         System.out.println("Worker Op Menu icindeyiz");
+        String which;
 
         Integer choice;
         do {
@@ -26,11 +27,31 @@ public class WorkerOpMenuView implements ViewInterface {
         userInput.put("mainMenuChoice", choice);
 
         switch (choice.intValue()) {
-            case 1: operationName = "select";	break;
-            case 2: operationName = "select.gui";	break;
-            case 3: operationName = "insert.gui";	break;
-            case 4: operationName = "update.gui";	break;
-            case 5: operationName = "delete.gui";	break;
+            case 1: {
+                which = WorkerQuestioner.whichWorker();
+                operationName = "select";
+                break;
+            }
+            case 2: {
+                which = WorkerQuestioner.whichWorker();
+                operationName = "select.gui";
+                break;
+            }
+            case 3: {
+                which = WorkerQuestioner.whichWorker();
+                operationName = "insert.gui";
+                break;
+            }
+            case 4: {
+                which = WorkerQuestioner.whichWorker();
+                operationName = "update.gui";
+                break;
+            }
+            case 5: {
+                which = WorkerQuestioner.whichWorker();
+                operationName = "delete.gui";
+                break;
+            }
             case 6: return new ViewData("MainMenu", "");
             default: return new ViewData(null, null);
         }

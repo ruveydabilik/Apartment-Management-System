@@ -3,7 +3,6 @@ package src;
 import java.sql.ResultSet;
 import java.util.*;
 
-
 class ResidentView implements ViewInterface {
         //String whichResident_ = whichResident;
     @Override
@@ -90,14 +89,15 @@ class ResidentView implements ViewInterface {
     }
 
     Map<String, Object> getWhereParametersForUpdate() throws Exception {
-        System.out.println("Enter the ApartmentID that would you like to update:");
-        Integer ApartmentID = getInteger("AparmentId : ", false);
+        //System.out.println("Enter the ApartmentID that would you like to update:");
+        //Integer ApartmentID = getInteger("ApartmentId : ", false);
 
+        Integer id = Integer.parseInt(ResidentQuestioner.storage());
         System.out.println("Enter the ResidentID that would you like to update:");
         Integer ResidentID = getInteger("ResidentId : ", false);
 
         Map<String, Object> whereParameters = new HashMap<>();
-        if (ApartmentID != null) whereParameters.put("ApartmentID", ApartmentID);
+        if (id != null) whereParameters.put("ApartmentID", id);
         if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
 
         return whereParameters;
@@ -129,11 +129,10 @@ class ResidentView implements ViewInterface {
         Integer ResidentID;
         String Name, MiddleName, Surname, ContactNo;
         Date EntryDate, ExitDate;
-        while(true) {
+        boolean flag = true;
+
+        while(flag) {
             System.out.println("Fields to insert:");
-            ResidentID = getInteger("ResidentID: ", false);
-            if(ResidentID == null)
-                break;
             Name = getString("Name: ", false);
             if(Name == null)
                 break;
@@ -155,9 +154,10 @@ class ResidentView implements ViewInterface {
             }*/
             System.out.println();
 
-            if (ResidentID != null && Name != null && MiddleName != null && Surname != null && EntryDate != null && ExitDate != null && ContactNo != null) {
-                rows.add(new Resident(ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo));
+            if ( Name != null && MiddleName != null && Surname != null && EntryDate != null && ExitDate != null && ContactNo != null) {
+                rows.add(new Resident(5, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo));
             }
+            flag = false;
         }
 
         parameters.put("rows", rows);
