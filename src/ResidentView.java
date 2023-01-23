@@ -1,4 +1,5 @@
 package src;
+
 import java.sql.ResultSet;
 import java.util.*;
 
@@ -82,13 +83,13 @@ class ResidentView implements ViewInterface {
 
     Map<String, Object> getWhereParameters() throws Exception {
         System.out.println("Filter conditions:");
-        Integer ResidentID = getInteger("ResidentId : ", true);
-        String Name = getString("Name: ", true);
+        Integer ResidentID = getInteger("ResidentId : ", false);
+        String Name = getString("Name: ", false);
         String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
-        String Surname = getString("Surname: ", true);
-        Date EntryDate = getDate("EntryDate: ", true);
+        String Surname = getString("Surname: ", false);
+        Date EntryDate = getDate("EntryDate: ", false);
         Date ExitDate = getDate("ExitDate: ", true); //null hatası varsa varsa burdan
-        String ContactNo = getString("ContactNo: ", true);
+        String ContactNo = getString("ContactNo: ", false);
 
         Map<String, Object> whereParameters = new HashMap<>();
         if (ResidentID != null) whereParameters.put("EmployeeID", ResidentID);
@@ -120,57 +121,65 @@ class ResidentView implements ViewInterface {
         Date EntryDate, ExitDate;
         while(true) {
             System.out.println("Fields to insert:");
-            ResidentID = getInteger("ResidentID: ", true);
+            ResidentID = getInteger("ResidentID: ", false);
             if(ResidentID == null)
                 break;
-            Name = getString("Name: ", true);
+            Name = getString("Name: ", false);
+            if(Name == null)
+                break;
             MiddleName = getString("MiddleName: ", true);
-            Surname = getString("MiddleName: ", true);
-            EntryDate = getDate("EntryDate: ", true);
+            Surname = getString("Surname: ", false);
+            if(Surname == null)
+                break;
+            EntryDate = getDate("EntryDate: ", false);
+            if(EntryDate == null)
+                break;
             ExitDate = getDate("ExitDate: ", true);
             ContactNo = getString("ContactNo: ", true);
+            if(ContactNo == null)
+                break;
 
-            while(!(authority >= 0) || !(authority <= 1)){
+            /*while(!(authority >= 0) || !(authority <= 1)){
                 System.out.println("Authority must be either 0 or 1!!!");
                 authority = getInteger("Authority(0 - 1): ", true);
-            }
+            }*/
             System.out.println();
 
             if (ResidentID != null && Name != null && MiddleName != null && Surname != null && EntryDate != null && ExitDate != null && ContactNo != null) {
-                rows.add(new Employee(ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo));
+                rows.add(new Resident(ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo));
             }
         }
 
         parameters.put("rows", rows);
 
-        return new ViewData("Resident", "insert", parameters , which);
+        return new ViewData("Resident", "insert", parameters);
     }
 
     ViewData updateGUI(ModelData modelData) throws Exception {
         System.out.println("Fields to update:");
-        Integer employeeID = getInteger("EMployee ID: ", true);
-        String firstName = getString("First Name : ", true);
-        String lastName = getString("Last Name : ", true);
-        String eMail = getString("E-mail: ", true);
-        String experienceLevel = getString("Experience Level(Junior - Senior): ", true);
-        String location = getString("Location: ", true);
-        Integer authority = getInteger("Authority(0 - 1): ", true);
+        Integer ResidentID = getInteger("ResidentID: ", false);
+        String Name = getString("Name : ", false);
+        String MiddleName = getString("MiddleName : ", true);
+        String Surname = getString("Surname: ", false);
+        Date EntryDate = getDate("EntryDate: ", false);
+        Date ExitDate = getDate("ExitDate: ", true);
+        String ContactNo = getString("ContactNo: ", false);
         System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();
-        if (employeeID != null) updateParameters.put("EmployeeID", employeeID);
-        if (firstName != null) updateParameters.put("FirstName", firstName);
-        if (lastName != null) updateParameters.put("FastName", lastName);
-        if (eMail != null) updateParameters.put("Email", eMail);
-        if (experienceLevel != null) updateParameters.put("ExperienceLevel", experienceLevel);
-        if (location != null) updateParameters.put("Location", location);
-        if (authority != null) updateParameters.put("Authority", authority);
+        if (ResidentID != null) updateParameters.put("ResidentID", ResidentID);
+        if (Name != null) updateParameters.put("Name", Name);
+        if (MiddleName != null) updateParameters.put("MiddleName", MiddleName);
+        if (Surname != null) updateParameters.put("Surname", Surname);
+        if (EntryDate != null) updateParameters.put("EntryDate", EntryDate);
+        if (ExitDate != null) updateParameters.put("ExitDate", ExitDate);
+        if (ContactNo != null) updateParameters.put("ContactNo", ContactNo);
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Employee", "update", parameters);
+        return new ViewData("Resident", "update", parameters);
     }
 
     ViewData deleteGUI(ModelData modelData) throws Exception {

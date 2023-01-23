@@ -1,5 +1,12 @@
+package src;
+
+<<<<<<< HEAD
+import java.sql.SQLOutput;
+=======
+>>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 
 public class MainMenuView implements ViewInterface {
 
@@ -23,12 +30,18 @@ public class MainMenuView implements ViewInterface {
 
 		switch (choice.intValue()) {
 			case 1:{
+				System.out.println("Resident Menu icindeyiz");
 				return new ViewData("ResidentMenu", "");
 			}
 			case 2:{
+				System.out.println("Worker Menu icindeyiz");
 				return new ViewData("WorkerMenu", "");
 			}
-			default: return new ViewData(null, null);
+			default:
+			{
+				System.out.println("Default içindeyiz");
+				return new ViewData(null, null);
+			}
 		}
 	}
 	@Override

@@ -8,7 +8,7 @@ EXAMPLE ROLES:
     
     
 NOTES: 
-    Manager, assistant manager, or controller can be also a resident (mostly they are)
+    src.Database.Manager, assistant manager, or controller can be also a resident (mostly they are)
     You will collect monthly payments and spend these money on several items:    
         -> monthly: ortak elektrik, su, havuz bakımı, asansör bakımı, temizlik, 
         -> annual: boya, 
