@@ -6,7 +6,7 @@ public class ViewData {
 	final String functionName;
 	final String operationName;
 	final Map<String, Object> viewParameters;
-	String whichResident= "";
+	String which_= "";
 
 	ViewData(String functionName, String operationName) {
 		this.functionName = functionName;
@@ -19,11 +19,11 @@ public class ViewData {
 		this.operationName = operationName;
 		this.viewParameters = viewParameters;
 	}
-	ViewData(String functionName, String operationName, Map<String, Object> viewParameters, String whichResident) {
+	ViewData(String functionName, String operationName, Map<String, Object> viewParameters, String which_) {
 		this.functionName = functionName;
 		this.operationName = operationName;
 		this.viewParameters = viewParameters;
-		this.whichResident = whichResident;
+		this.which_ = which_;
 	}
 	
 	@Override

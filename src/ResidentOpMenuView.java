@@ -4,12 +4,13 @@ import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.util.*;
 class ResidentOpMenuView implements ViewInterface {
+    String whichResident;
 
-
-    public ViewData create(ModelData modelData, String functionName, String operationName, String whichResident) throws Exception {
+    public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
         System.out.println("Resident Op Menu icindeyiz");
 
         Integer choice;
+
         do {
             System.out.println("1. Show all residents");
             System.out.println("2. Show filtered residents");
@@ -26,6 +27,7 @@ class ResidentOpMenuView implements ViewInterface {
 
         Map<String, Object> userInput = new HashMap<>();
         Integer aptNo;
+
         userInput.put("mainMenuChoice", choice);
 
         switch (choice.intValue()) {
@@ -59,7 +61,7 @@ class ResidentOpMenuView implements ViewInterface {
             default: return new ViewData(null, null);
         }
 
-        return new ViewData("Resident", operationName, new HashMap<>());
+        return new ViewData("Resident", operationName, new HashMap<>(), whichResident);
     }
 
     @Override
@@ -92,8 +94,4 @@ class ResidentOpMenuView implements ViewInterface {
         return ViewInterface.super.getString(prompt, allowNulls);
     }
 
-    @Override
-    public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
-        return null;
-    }
 }

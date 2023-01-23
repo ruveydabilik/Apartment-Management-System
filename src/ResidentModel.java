@@ -12,13 +12,13 @@ class ResidentModel implements ModelInterface {
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT ");
-		sql.append("	ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+		sql.append("ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
 		sql.append(" FROM " + whichResident);
 
 		List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);		
 		sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
 		
-		sql.append("ORDER BY ResidentID");
+		sql.append(" ORDER BY ResidentID");
 
 		// execute constructed SQL statement
 		Connection connection = DatabaseUtilities.getConnection();

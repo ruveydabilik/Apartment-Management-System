@@ -5,6 +5,7 @@ import java.util.*;
 public class WorkerOpMenuView implements ViewInterface {
 
     public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
+        System.out.println("Worker Op Menu icindeyiz");
 
         Integer choice;
         do {

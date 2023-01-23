@@ -84,21 +84,22 @@ class ResidentView implements ViewInterface {
     Map<String, Object> getWhereParameters() throws Exception {
         System.out.println("Filter conditions:");
         Integer ResidentID = getInteger("ResidentId : ", false);
-        String Name = getString("Name: ", false);
+       /* String Name = getString("Name: ", false);
         String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
         String Surname = getString("Surname: ", false);
         Date EntryDate = getDate("EntryDate: ", false);
         Date ExitDate = getDate("ExitDate: ", true); //null hatası varsa varsa burdan
-        String ContactNo = getString("ContactNo: ", false);
+        String ContactNo = getString("ContactNo: ", false);*/
+
 
         Map<String, Object> whereParameters = new HashMap<>();
-        if (ResidentID != null) whereParameters.put("EmployeeID", ResidentID);
-        if (Name != null) whereParameters.put("Name", Name);
+        if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
+        /*if (Name != null) whereParameters.put("Name", Name);
         if (MiddleName != null) whereParameters.put("MiddleName", MiddleName);
         if (Surname != null) whereParameters.put("Surname", Surname);
         if (EntryDate != null) whereParameters.put("EntryDate", EntryDate);
         if (ExitDate != null) whereParameters.put("ExitDate", ExitDate);
-        if (ContactNo != null) whereParameters.put("ContactNo", ContactNo);
+        if (ContactNo != null) whereParameters.put("ContactNo", ContactNo);*/
 
         return whereParameters;
     }
@@ -107,7 +108,7 @@ class ResidentView implements ViewInterface {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Employee", "select", parameters);
+        return new ViewData("Resident", "select", parameters);
     }
 
     ViewData insertGUI(ModelData modelData) throws Exception {

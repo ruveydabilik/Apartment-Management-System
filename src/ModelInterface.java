@@ -15,6 +15,7 @@ interface ModelInterface {
 	abstract int delete(Map<String,Object> whereParameters, String which_) throws Exception;
 	
 	default ModelData execute(ViewData viewData, String which_) throws Exception {
+
 		if (viewData.viewParameters == null) {
 			return new ModelData();
 		}

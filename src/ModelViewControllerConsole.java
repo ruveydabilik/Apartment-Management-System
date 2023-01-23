@@ -11,12 +11,13 @@ public class ModelViewControllerConsole {
         // Connect to database
         connectToDatabase();
 
-
         // Model View Controller (MVC)
         // Router knows all the controllers
-        Map<Object, Object> router = new HashMap<>();
-        router.put("MainMenu", new Controller(new MainMenuView(), new NopModel()));
+        Map<String, Controller> router = new HashMap<>();
 
+        // ilk parametreler functionNameler, tek tek Mapin içine atıyoruz. İkinci parametre de controller,
+        // her functionName için eşleşen bir controller var
+        router.put("MainMenu", new Controller(new MainMenuView(), new NopModel()));
         router.put("ResidentMenu", new Controller(new ResidentOpMenuView(), new NopModel()));
         router.put("WorkerMenu", new Controller(new WorkerOpMenuView(), new NopModel()));
 
@@ -25,15 +26,29 @@ public class ModelViewControllerConsole {
 
         ViewData viewData = new ViewData("MainMenu", "");
 
+
         do {
+
             // Model, View, and Controller
-            Controller controller = (Controller) router.get(viewData.functionName);
-            ModelData modelData = controller.executeModel(viewData,"");
+            Controller controller = router.get(viewData.functionName); // controllerı null alıyor
+            if (controller == null) {
+                System.out.println("controller is null");
+            }
+
+            ModelData modelData = controller.executeModel(viewData,"1");
+            if (modelData == null) {
+                System.out.println("Modeldata is null");
+            }
+            // aşşada getView konsola MainMenuViewi getirdi.
             viewData = controller.getView(modelData, viewData.functionName, viewData.operationName);
+            // ama sonradan seçime göre Resident ya da Workerı da gertiriyo
 
             System.out.println();
             System.out.println("-------------------------------------------------");
             System.out.println();
+
+
+
         }
         while (viewData != null);
 
