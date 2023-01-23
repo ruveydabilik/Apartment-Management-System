@@ -28,11 +28,7 @@ public class ModelViewControllerConsole {
         do {
             // Model, View, and Controller
             Controller controller = (Controller) router.get(viewData.functionName);
-<<<<<<< HEAD
-            ModelData modelData = controller.executeModel(viewData,"");
-=======
             ModelData modelData = controller.executeModel(viewData);
->>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
             viewData = controller.getView(modelData, viewData.functionName, viewData.operationName);
 
             System.out.println();

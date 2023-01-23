@@ -1,19 +1,10 @@
 package src;
 
-<<<<<<< HEAD
-import java.sql.SQLOutput;
-=======
->>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
 import java.text.ParseException;
 import java.util.*;
 class ResidentOpMenuView implements ViewInterface {
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
     public ViewData create(ModelData modelData, String functionName, String operationName, String whichResident) throws Exception {
-        System.out.println("Resident Op Menu icindeyiz");
 
         Integer choice;
         do {

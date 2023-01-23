@@ -6,19 +6,15 @@ import java.util.*;
 
 interface ModelInterface {
 
-<<<<<<< HEAD
-	abstract ResultSet select(Map<String, Object> whereParameters , String which_) throws Exception;
-=======
 	abstract ResultSet select(Map<String, Object> whereParameters) throws Exception;
->>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
 	
-	abstract int insert(String fieldNames, List<Object> rows, String which_) throws Exception;
+	abstract int insert(String fieldNames, List<Object> rows) throws Exception;
 		
-	abstract int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters, String which_) throws Exception;
+	abstract int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception;
 
-	abstract int delete(Map<String,Object> whereParameters, String which_) throws Exception;
+	abstract int delete(Map<String,Object> whereParameters) throws Exception;
 	
-	default ModelData execute(ViewData viewData, String which_) throws Exception {
+	default ModelData execute(ViewData viewData) throws Exception {
 		if (viewData.viewParameters == null) {
 			return new ModelData();
 		}
@@ -29,11 +25,7 @@ interface ModelInterface {
 				//String which
 				Map<String, Object> whereParameters = (Map<String, Object>)(viewData.viewParameters.get("whereParameters"));
 				
-<<<<<<< HEAD
-				ResultSet resultSet = select(whereParameters, which_);
-=======
 				ResultSet resultSet = select(whereParameters);
->>>>>>> d0bb06dfe6279e6ba2a068225d2044deac0e336a
 				
 				return new ModelData(viewData.functionName, resultSet);
 			}
@@ -42,7 +34,7 @@ interface ModelInterface {
 				String fieldNames = (String)(viewData.viewParameters.get("fieldNames"));
 				List<Object> rows = (List<Object>)(viewData.viewParameters.get("rows"));
 				
-				int recordCount = insert(fieldNames, rows, which_);
+				int recordCount = insert(fieldNames, rows);
 				
 				return new ModelData(viewData.functionName, recordCount);
 			}
@@ -51,7 +43,7 @@ interface ModelInterface {
 				Map<String, Object> updateParameters = (Map<String, Object>)(viewData.viewParameters.get("updateParameters"));
 				Map<String, Object> whereParameters = (Map<String, Object>)(viewData.viewParameters.get("whereParameters"));
 				
-				int recordCount = update(updateParameters, whereParameters, which_);
+				int recordCount = update(updateParameters, whereParameters);
 				
 				return new ModelData(viewData.functionName, recordCount);
 			}
@@ -59,7 +51,7 @@ interface ModelInterface {
 			{
 				Map<String, Object> whereParameters = (Map<String, Object>)(viewData.viewParameters.get("whereParameters"));
 				
-				int recordCount = delete(whereParameters,which_);
+				int recordCount = delete(whereParameters);
 				
 				return new ModelData(viewData.functionName, recordCount);
 			}
