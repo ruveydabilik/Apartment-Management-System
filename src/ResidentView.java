@@ -90,10 +90,14 @@ class ResidentView implements ViewInterface {
     }
 
     Map<String, Object> getWhereParametersForUpdate() throws Exception {
-        System.out.println("Enter the ID that would you like to update:");
+        System.out.println("Enter the ApartmentID that would you like to update:");
+        Integer ApartmentID = getInteger("AparmentId : ", false);
+
+        System.out.println("Enter the ResidentID that would you like to update:");
         Integer ResidentID = getInteger("ResidentId : ", false);
 
         Map<String, Object> whereParameters = new HashMap<>();
+        if (ApartmentID != null) whereParameters.put("ApartmentID", ApartmentID);
         if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
 
         return whereParameters;
@@ -162,8 +166,14 @@ class ResidentView implements ViewInterface {
     }
 
     ViewData updateGUI(ModelData modelData) throws Exception {
+
+        Map<String, Object> updateParameters = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<>();
+
+        parameters.put("whereParameters", getWhereParametersForUpdate());
+
         System.out.println("Fields to update:");
-        Integer ResidentID = getInteger("ResidentID: ", false);
+        /*Integer ResidentID = getInteger("ResidentID: ", false);*/
         String Name = getString("Name : ", false);
         String MiddleName = getString("MiddleName : ", true);
         String Surname = getString("Surname: ", false);
@@ -172,8 +182,8 @@ class ResidentView implements ViewInterface {
         String ContactNo = getString("ContactNo: ", false);
         System.out.println();
 
-        Map<String, Object> updateParameters = new HashMap<>();
-        if (ResidentID != null) updateParameters.put("ResidentID", ResidentID);
+
+        /*if (ResidentID != null) updateParameters.put("ResidentID", ResidentID);*/
         if (Name != null) updateParameters.put("Name", Name);
         if (MiddleName != null) updateParameters.put("MiddleName", MiddleName);
         if (Surname != null) updateParameters.put("Surname", Surname);
@@ -181,9 +191,8 @@ class ResidentView implements ViewInterface {
         if (ExitDate != null) updateParameters.put("ExitDate", ExitDate);
         if (ContactNo != null) updateParameters.put("ContactNo", ContactNo);
 
-        Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);
-        parameters.put("whereParameters", getWhereParametersForUpdate());
+
 
         return new ViewData("Resident", "update", parameters);
     }

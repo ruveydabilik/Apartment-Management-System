@@ -23,12 +23,12 @@ class ResidentModel implements ModelInterface {
 
 		wanterApartment();
 
-		String whichResident = "dbo.Resident" + which.trim();
+		String whichApartment = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT ");
 		sql.append("ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
-		sql.append(" FROM " + whichResident);
+		sql.append(" FROM " + whichApartment);
 
 		List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);		
 		sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -96,10 +96,11 @@ class ResidentModel implements ModelInterface {
 
 	public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception
 	{
-		String whichResident = "dbo.Resident" + which.trim();
+
+		//String whichResident = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
-		sql.append(" UPDATE " + whichResident+ " SET ");
+		sql.append(" UPDATE " + whereParameters.get("ResidentID") + " SET ");
 		int appendCount = 0;
 		for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
 			sql.append(entry.getKey() + " = " + DatabaseUtilities.formatField(entry.getValue()));
