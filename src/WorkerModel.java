@@ -150,7 +150,7 @@ class WorkerModel implements ModelInterface {
 
     @Override
     public String toString() {
-        return "Resident Model";
+        return "Worker Model";
     }
 }
 

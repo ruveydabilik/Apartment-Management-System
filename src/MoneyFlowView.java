@@ -1,3 +1,4 @@
+/*
 package src;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,20 +8,12 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 
-class WorkerView implements ViewInterface {
+class MoneyFlowView implements ViewInterface {
 
     String which;
-    public static int calculateAge(String birthdate){
-        LocalDate dateObj = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String date = dateObj.format(formatter);
-        System.out.println(date);
-        LocalDate dob = LocalDate.parse((CharSequence) birthdate);
-        return Period.between(dob, LocalDate.parse(date)).getYears();
-    }
+
     @Override
     public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
-
         switch(operationName) {
             case "select": return selectOperation(modelData);
             case "insert": return insertOperation(modelData);
@@ -38,48 +31,38 @@ class WorkerView implements ViewInterface {
     ViewData selectOperation(ModelData modelData) throws Exception {
 
         ResultSet resultSet = modelData.resultSet;
-        which = WorkerQuestioner.storage();
-
-        String _whichWorker = "dbo." + which.trim();
+        which = MoneyFlowQuestioner.storage();
+        String _whichFlow = "dbo." + which.trim();
         String ID = which.trim() + "Id";
-        //Integer intID = Integer.parseInt(ID);
+
 
         if (resultSet != null) {
             while (resultSet.next()) {
                 // Retrieve by column name
-                int WorkerID = resultSet.getInt(ID);
-                String Name = resultSet.getString("Name");
-                String MiddleName = resultSet.getString("MiddleName");
-                String Surname = resultSet.getString("Surname");
-                float Salary = resultSet.getFloat("Salary");
-                int AptNo = resultSet.getInt("AptNo");
-                Date JobTime = resultSet.getDate("JobTime");
-                String IbanNo = resultSet.getString("IbanNo");
-                Date BirthDate = resultSet.getDate("Birthdate");
-                String Gender = resultSet.getString("Gender");
-                //Integer Age;
-                //String date = BirthDate.toString();
-                //Age = calculateAge(date);
+                int MoneyFlowId = resultSet.getInt(ID);
+                int ApartmentId = resultSet.getInt(ID);
+                int ResidentId = resultSet.getInt(ID);
+                float Amount = resultSet.getFloat("Amount");
+                String Description = resultSet.getString("Description");
+                Date Date = resultSet.getDate("Date");
+                int ParentId = resultSet.getInt(ID);
+
 
                 // Display values
-                System.out.println(ID+ ": " + WorkerID);
-                System.out.print("Name: " + Name);
-                if (MiddleName != null){
-                    System.out.print(" " + MiddleName);
-                }
-                System.out.println("\nSurname: " + Surname);
-                System.out.println("Salary: " + Salary);
-                System.out.println("AptNo: " + AptNo);
-                System.out.println("JobTime: " + JobTime);
-                System.out.println("IbanNo: " + IbanNo);
-                System.out.println("BirthDate: " + BirthDate);
-                System.out.println("Gender: " + Gender);
+                System.out.println(ID+ ": " + MoneyFlowId);
+                System.out.println("ApartmentId: " + ApartmentId);
+                System.out.println("ResidentId: " + ResidentId);
+                System.out.println("Amount: " + Amount);
+                System.out.println("Description: " + Description);
+                System.out.println("Date: " + Date);
+                System.out.println("ParentId: " + ParentId);
+
 
             }
             resultSet.close();
         }
 
-        return new ViewData("WorkerMenu", "");
+        return new ViewData("MoneyFlowMenu", "");
     }
 
     ViewData insertOperation(ModelData modelData) throws Exception {
@@ -101,14 +84,16 @@ class WorkerView implements ViewInterface {
     }
 
     Map<String, Object> getWhereParameters() throws Exception {
-        which = WorkerQuestioner.storage();
+
+        which = MoneyFlowQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
         //Integer intID = Integer.parseInt(ID);
 
         System.out.println("Filter conditions:");
-        Integer WorkerID = getInteger(ID +" : ", false);
-        /*String Name = getString("Name: ", false);
+        Integer FlowID = getInteger(ID +" : ", false);
+        */
+/*String Name = getString("Name: ", false);
         String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
         String Surname = getString("Surname: ", false);
         Float Salary = getFloat("Salary: ", false);
@@ -119,11 +104,13 @@ class WorkerView implements ViewInterface {
         String Gender = getString("Gender", false);
         Integer Age;
         String date = BirthDate.toString();
-        Age = calculateAge(date);*/
+        Age = calculateAge(date);*//*
+
 
         Map<String, Object> whereParameters = new HashMap<>();
-        if (WorkerID != null) whereParameters.put(ID , WorkerID);
-        /*if (Name != null) whereParameters.put("Name", Name);
+        if (FlowID != null) whereParameters.put(ID , FlowID);
+        */
+/*if (Name != null) whereParameters.put("Name", Name);
         if (MiddleName != null) whereParameters.put("MiddleName", MiddleName);
         if (Surname != null) whereParameters.put("Surname", Surname);
         if (Salary != null) whereParameters.put("Salary", Salary);
@@ -132,7 +119,8 @@ class WorkerView implements ViewInterface {
         if (IbanNo != null) whereParameters.put("IbanNo", IbanNo);
         if (BirthDate != null) whereParameters.put("BirthDate", BirthDate);
         if (Gender != null) whereParameters.put("Gender", Gender);
-        if (Age != null) whereParameters.put("Age", Age);*/
+        if (Age != null) whereParameters.put("Age", Age);*//*
+
 
         return whereParameters;
     }
@@ -142,7 +130,7 @@ class WorkerView implements ViewInterface {
 
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Worker", "select", parameters);
+        return new ViewData("MoneyFlow", "select", parameters);
     }
 
     ViewData insertGUI(ModelData modelData) throws Exception {
@@ -217,7 +205,7 @@ class WorkerView implements ViewInterface {
 
         System.out.println("Fields to update:");
 
-       // Integer WorkerID = getInteger(ID +" : ", false);
+        // Integer WorkerID = getInteger(ID +" : ", false);
         String Name = getString("Name: ", false);
         String MiddleName = getString("MiddleName: ", true); //null hatası varsa varsa burdan
         String Surname = getString("Surname: ", false);
@@ -261,5 +249,149 @@ class WorkerView implements ViewInterface {
     @Override
     public String toString() {
         return "Worker View";
+    }
+}
+*/
+
+
+package src;
+
+import java.sql.ResultSet;
+import java.util.*;
+
+
+class MoneyFlowView implements ViewInterface {
+
+    String which;
+
+
+    @Override
+    public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
+
+        switch (operationName) {
+            case "select": return selectOperation(modelData);
+            case "insert.gui": return insertGUI(modelData);
+        }
+
+        return new ViewData("MainMenu", "");
+    }
+
+    ViewData selectOperation(ModelData modelData) throws Exception {
+
+        ResultSet resultSet = modelData.resultSet;
+        which = MoneyFlowQuestioner.storage();
+
+        String _whichMoneyFlow = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
+        //Integer intID = Integer.parseInt(ID);
+
+        if (resultSet != null) {
+            while (resultSet.next()) {
+                // Retrieve by column name
+                Integer MoneyFlowID = resultSet.getInt(ID); // IncomeId
+                Integer ApartmentId = resultSet.getInt("ApartmentId");
+                Integer ResidentId = resultSet.getInt("ResidentId");
+                float Amount = resultSet.getFloat("Amount");
+                String Description = resultSet.getString("Description");
+                Date Date = resultSet.getDate("Date");
+                Integer ParentId = resultSet.getInt("ParentId");
+
+
+                // Display values
+                System.out.println(ID + ": " + MoneyFlowID);
+                System.out.println("ApartmentId: " + ApartmentId);
+                System.out.println("ResidentId: " + ResidentId);
+                System.out.println("Amount: " + Amount);
+                System.out.println("Description: " + Description);
+                System.out.println("Date: " + Date);
+                System.out.println("ParentId: " + ParentId);
+
+            }
+            System.out.println("----------");
+            resultSet.close();
+        }
+
+        return new ViewData("MoneyFlowMenu", "");
+    }
+
+    ViewData insertOperation(ModelData modelData) throws Exception {
+        System.out.println("Number of inserted rows is " + modelData.recordCount);
+
+        return new ViewData("MoneyFlowMenu", "");
+    }
+
+
+    Map<String, Object> getWhereParameters() throws Exception {
+
+        which = MoneyFlowQuestioner.storage();
+        String _whichMoneyFlow = "dbo." + which.trim();
+        String ID = which.trim() + "Id";
+        //Integer intID = Integer.parseInt(ID);
+
+        System.out.println("Filter conditions:");
+        Integer MoneyFlowID = getInteger(ID + " MoneyFlowID: ", false);
+
+        Map<String, Object> whereParameters = new HashMap<>();
+        if (MoneyFlowID != null) whereParameters.put(ID, MoneyFlowID);
+
+        return whereParameters;
+    }
+
+    ViewData selectGUI(ModelData modelData) throws Exception {
+        Map<String, Object> parameters = new HashMap<>();
+
+        parameters.put("whereParameters", getWhereParameters());
+
+        return new ViewData("MoneyFlow", "select", parameters);
+    }
+
+    ViewData insertGUI(ModelData modelData) throws Exception {
+        Map<String, Object> parameters = new HashMap<>();
+        which = MoneyFlowQuestioner.storage();
+        String _whichMoneyFlow = "dbo." + which.trim();
+        String ID = which.trim() + "Id"; // IncomeId
+        //Integer intID = Integer.parseInt(ID);
+        parameters.put("fieldNames", ID + ", ApartmentId, ResidentId, Amount, Description, Date, ParentId");
+
+        List<Object> rows = new ArrayList<>();
+
+        Integer MoneyFlowID;
+        Integer ApartmentId, ResidentId, ParentId;
+        String MiddleName, Surname, IbanNo, Gender;
+        String Description, Date;
+        Float Amount;
+
+        boolean flag = true;
+
+        while (flag) {
+            System.out.println("Fields to insert:");
+            MoneyFlowID = getInteger(ID, false);
+            if (MoneyFlowID == null) break;
+            ApartmentId = getInteger("ApartmentId: ", false);
+            ResidentId = getInteger("ResidentId: ", false);
+            Amount = getFloat("Amount: ", false);
+            Description = getString("Description: ", true);
+            Date = getString("Date: ", false);
+            ParentId = getInteger("ParentId: ", false);
+
+            Date date = java.sql.Date.valueOf(Date);
+
+            System.out.println();
+
+            if (MoneyFlowID!=null && ApartmentId != null && ResidentId != null && Amount != null && date != null && ParentId != null) {
+                rows.add(new MoneyFlow(5, ApartmentId, ResidentId, Amount, Description, date, ParentId));
+            }
+            flag = false;
+        }
+
+        parameters.put("rows", rows);
+
+        return new ViewData("MoneyFlow", "insert", parameters);
+    }
+
+
+    @Override
+    public String toString() {
+        return "MoneyFlow View";
     }
 }

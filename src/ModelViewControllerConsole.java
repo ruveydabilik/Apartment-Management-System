@@ -20,9 +20,11 @@ public class ModelViewControllerConsole {
         router.put("MainMenu", new Controller(new MainMenuView(), new NopModel()));
         router.put("ResidentMenu", new Controller(new ResidentOpMenuView(), new NopModel()));
         router.put("WorkerMenu", new Controller(new WorkerOpMenuView(), new NopModel()));
+        router.put("MoneyFlowMenu", new Controller(new MoneyFlowOpMenuView(), new NopModel()));
 
         router.put("Resident", new Controller(new ResidentView(), new ResidentModel()));
         router.put("Worker", new Controller(new WorkerView(), new WorkerModel()));
+        router.put("MoneyFlow", new Controller(new MoneyFlowView(), new MoneyFlowModel()));
 
         ViewData viewData = new ViewData("MainMenu", "");
 

@@ -14,12 +14,13 @@ public class MainMenuView implements ViewInterface {
 		do {
 			System.out.println("1. Resident Operations");
 			System.out.println("2. Worker Operations");
-			System.out.println("3. Quit");
+			System.out.println("3. Income-Outcome Operations");
+			System.out.println("4. Quit");
 			System.out.println();
 
 			choice = getInteger("Enter your choice : ", false);
 		}
-		while (choice == null || choice < 1 || choice > 3);
+		while (choice == null || choice < 1 || choice > 4);
 
 
 		Map<String, Object> userInput = new HashMap<>();
@@ -33,6 +34,10 @@ public class MainMenuView implements ViewInterface {
 			case 2:{
 				System.out.println("Worker Menu icindeyiz");
 				return new ViewData("WorkerMenu", "");
+			}
+			case 3: {
+				System.out.println("MoneyFlow Menu içindeyiz");
+				return new ViewData("MoneyFlowMenu", "");
 			}
 			default:
 			{
