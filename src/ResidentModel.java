@@ -39,6 +39,7 @@ class ResidentModel implements ModelInterface {
 		which = ResidentQuestioner.storage();
 
 		String whichResident = "dbo.Resident" + which.trim();
+		//System.out.println("WHICH_RESIDENT: " + whichResident);
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" INSERT INTO " + whichResident +" (" + fieldNames + ") " );
@@ -86,6 +87,7 @@ class ResidentModel implements ModelInterface {
 	public int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception
 	{
 
+		String which = ResidentQuestioner.storage();
 		String whichResident = "dbo.Resident" + which;
 		// construct SQL statement
 
@@ -116,7 +118,9 @@ class ResidentModel implements ModelInterface {
 
 	public int delete(Map<String,Object> whereParameters) throws Exception
 	{
-		String whichResident = "dbo.Resident" + which.trim();
+		String which = ResidentQuestioner.storage();
+		String whichResident = "dbo.Resident" + which;
+		//String whichResident = "dbo.Resident" + which.trim();
 		// construct SQL statement
 		StringBuilder sql = new StringBuilder();
 		sql.append(" DELETE FROM " + whichResident);

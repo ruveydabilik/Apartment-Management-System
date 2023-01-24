@@ -17,12 +17,13 @@ public class Resident {
 
     }
 
-    Resident(String name, String middleName, String surname, Date entryDate, Date exitDate) {
+    Resident(String name, String middleName, String surname, Date entryDate, Date exitDate, String contactNo) {
         this.name = name;
         this.middleName = middleName;
         this.surname = surname;
         this.entryDate = entryDate;
         this.exitDate = exitDate;
+        this.contactNo = contactNo;
     }
 
 

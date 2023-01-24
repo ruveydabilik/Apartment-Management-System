@@ -16,6 +16,18 @@ public class Worker {
 
     Worker(){}
 
+    public Worker(String name, String middleName, String surname, Float salary, int aptNo, Date jobTime, String ibanNo, Date birthdate, String gender) {
+        this.name = name;
+        this.middleName = middleName;
+        this.surname = surname;
+        this.salary = salary;
+        this.aptNo = aptNo;
+        this.jobTime = jobTime;
+        this.ibanNo = ibanNo;
+        this.birthdate = birthdate;
+        this.gender = gender;
+    }
+
     public Worker(int workerID, String name, String middleName, String surname, Float salary, int aptNo, Date jobTime, String ibanNo, Date birthdate, String gender) {
         this.workerID = workerID;
         this.name = name;
@@ -132,6 +144,33 @@ public class Worker {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Object getByName(String attributeName) {
+        switch (attributeName) {
+            case "WorkerID":
+                return workerID;
+            case "Name":
+                return name;
+            case "MiddleName":
+                return middleName;
+            case "Surname":
+                return surname;
+            case "Salary":
+                return salary;
+            case "AptNo":
+                return aptNo;
+            case "JobTime":
+                return jobTime;
+            case "IbanNo":
+                return ibanNo;
+            case "BirthDate":
+                return birthdate;
+            case "Gender":
+                return gender;
+            default:
+                return null;
+        }
     }
 
     @Override

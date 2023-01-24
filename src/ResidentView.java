@@ -92,12 +92,12 @@ class ResidentView implements ViewInterface {
         //System.out.println("Enter the ApartmentID that would you like to update:");
         //Integer ApartmentID = getInteger("ApartmentId : ", false);
 
-        Integer id = Integer.parseInt(ResidentQuestioner.storage());
+        //Integer id = Integer.parseInt(ResidentQuestioner.storage());
         System.out.println("Enter the ResidentID that would you like to update:");
         Integer ResidentID = getInteger("ResidentId : ", false);
 
         Map<String, Object> whereParameters = new HashMap<>();
-        if (id != null) whereParameters.put("ApartmentID", id);
+        //if (id != null) whereParameters.put("ApartmentID", id);
         if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
 
         return whereParameters;
@@ -122,13 +122,13 @@ class ResidentView implements ViewInterface {
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "ResidentID, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
+        parameters.put("fieldNames", "Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo");
 
         List<Object> rows = new ArrayList<>();
 
         Integer ResidentID;
         String Name, MiddleName, Surname, ContactNo;
-        Date EntryDate, ExitDate;
+        String EntryDate, ExitDate;
         boolean flag = true;
 
         while(flag) {
@@ -140,22 +140,30 @@ class ResidentView implements ViewInterface {
             Surname = getString("Surname: ", false);
             if(Surname == null)
                 break;
-            EntryDate = getDate("EntryDate: ", false);
+            EntryDate = getString("EntryDate: ", false);
             if(EntryDate == null)
                 break;
-            ExitDate = getDate("ExitDate: ", true);
-            ContactNo = getString("ContactNo: ", true);
-            if(ContactNo == null)
-                break;
-
-            /*while(!(authority >= 0) || !(authority <= 1)){
-                System.out.println("Authority must be either 0 or 1!!!");
-                authority = getInteger("Authority(0 - 1): ", true);
+            ExitDate = getString("ExitDate: ", true);
+            /*if(ExitDate == null){
+                ExitDate = "";
             }*/
-            System.out.println();
+            ContactNo = getString("ContactNo: ", true);
+            if(ContactNo == null) {
+                break;
+            }
 
-            if ( Name != null && MiddleName != null && Surname != null && EntryDate != null && ExitDate != null && ContactNo != null) {
-                rows.add(new Resident(5, Name, MiddleName, Surname, EntryDate, ExitDate, ContactNo));
+            System.out.println();
+            Date Entry = java.sql.Date.valueOf(EntryDate);
+            Date Exit = java.sql.Date.valueOf(ExitDate);
+            //Date Exit = null;
+            /*if(ExitDate.equals(null)){
+                Exit = null;
+            }*/
+
+            /*java.sql.Date sqlExitDate =  java.sql.Date.valueOf(EntryDate);*/
+
+            if ( Name != null && Surname != null && Entry != null && ContactNo != null) {
+                rows.add(new Resident(Name, MiddleName, Surname, Entry, Exit, ContactNo));
             }
             flag = false;
         }
@@ -170,26 +178,33 @@ class ResidentView implements ViewInterface {
         Map<String, Object> updateParameters = new HashMap<>();
         Map<String, Object> parameters = new HashMap<>();
 
+        String which = ResidentQuestioner.storage();
+        String whichApartment = "dbo.Resident" + which.trim();
+
         parameters.put("whereParameters", getWhereParametersForUpdate());
 
         System.out.println("Fields to update:");
-        /*Integer ResidentID = getInteger("ResidentID: ", false);*/
+        //Integer ResidentID = getInteger("ResidentID: ", false);
         String Name = getString("Name : ", false);
         String MiddleName = getString("MiddleName : ", true);
         String Surname = getString("Surname: ", false);
-        Date EntryDate = getDate("EntryDate: ", false);
-        Date ExitDate = getDate("ExitDate: ", true);
+        String EntryDate = getString("EntryDate: ", false);
+        String ExitDate = getString("ExitDate: ", true);
         String ContactNo = getString("ContactNo: ", false);
         System.out.println();
 
+        Date Entry = java.sql.Date.valueOf(EntryDate);
+        Date Exit = java.sql.Date.valueOf(ExitDate);
 
-        /*if (ResidentID != null) updateParameters.put("ResidentID", ResidentID);*/
+        //if (ResidentID != null) updateParameters.put("ResidentID", ResidentID);
         if (Name != null) updateParameters.put("Name", Name);
         if (MiddleName != null) updateParameters.put("MiddleName", MiddleName);
         if (Surname != null) updateParameters.put("Surname", Surname);
-        if (EntryDate != null) updateParameters.put("EntryDate", EntryDate);
-        if (ExitDate != null) updateParameters.put("ExitDate", ExitDate);
+        if (Entry != null) updateParameters.put("EntryDate", Entry);
+        if (Exit != null) updateParameters.put("ExitDate", Exit);
         if (ContactNo != null) updateParameters.put("ContactNo", ContactNo);
+
+
 
         parameters.put("updateParameters", updateParameters);
 

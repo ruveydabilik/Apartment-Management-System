@@ -37,10 +37,11 @@ class WorkerModel implements ModelInterface {
 
 
     public int insert(String fieldNames, List<Object> rows) throws Exception {
+
         which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
         String ID = which.trim() + "Id";
-        Integer intID = Integer.parseInt(ID);
+
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
         sql.append(" INSERT INTO " + _whichWorker + " (" + fieldNames + ") ");
@@ -51,15 +52,15 @@ class WorkerModel implements ModelInterface {
 
         int rowCount = 0;
         for (int i = 0; i < rows.size(); i++) {
-            if (rows.get(i) instanceof Resident) {
+            if (rows.get(i) instanceof Worker) {
                 rowCount++;
 
-                Resident Resident = (Resident) rows.get(i);
+                Worker worker = (Worker) rows.get(i);
 
                 sql.append("(");
                 for (int j = 0; j < fieldList.length; j++) {
                     String fieldName = fieldList[j].trim();
-                    sql.append(DatabaseUtilities.formatField(Resident.getByName(fieldName)));
+                    sql.append(DatabaseUtilities.formatField(worker.getByName(fieldName)));
                     if (j < fieldList.length - 1) {
                         sql.append(", ");
                     }
@@ -87,9 +88,10 @@ class WorkerModel implements ModelInterface {
 
 
     public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
+
         which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
-        String ID = which.trim() + "Id";
+
         //Integer intID = Integer.parseInt(ID);
 
         // construct SQL statement
@@ -117,9 +119,10 @@ class WorkerModel implements ModelInterface {
     }
 
     public int delete(Map<String, Object> whereParameters) throws Exception {
+
         which = WorkerQuestioner.storage();
         String _whichWorker = "dbo." + which.trim();
-        String ID = which.trim() + "Id";
+
         //Integer intID = Integer.parseInt(ID);
         // construct SQL statement
         StringBuilder sql = new StringBuilder();

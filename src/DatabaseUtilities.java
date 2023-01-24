@@ -90,11 +90,17 @@ class DatabaseUtilities {
 	}
 
 	public static String formatField(Object value) {
-		if (value instanceof String) {
-			return "'" + value + "'"; 
+		if(value == null){
+			return (String) "NULL";
 		}
-		
-		return value.toString();
+		if (value instanceof String) {
+			return "'" + value + "'";
+		}
+		else {
+			String str = String.valueOf(value);
+			return "'" + str + "'";
+		}
+		//return value.toString();
 	}
 	
 }
