@@ -1,5 +1,5 @@
 
-Group 9 Members
+Group Members
 
 Betül Karaman 
 Ayşe Rüveyda Bilik 
